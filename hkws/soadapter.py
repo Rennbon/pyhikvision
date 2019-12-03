@@ -2,20 +2,21 @@ from ctypes import *
 import os
 import logging
 import hkws.model.login as login
+import hkws.model.preview as preview
 
 
 class HKAdapter:
     so_list = []
 
     # 加载目录下所有so文件
-    def add_so(self, path):
+    def add_lib(self, path, suffix):
         files = os.listdir(path)
         for file in files:
             if not os.path.isdir(path + file):
-                if file.endswith(".so"):
+                if file.endswith(suffix):
                     self.so_list.append(path + file)
             else:
-                self.add_so(path + file + "/")
+                self.add_lib(path + file + "/", suffix)
 
     # python 调用 sdk 指定方法
     def call_cpp(self, func_name, *args):
@@ -51,6 +52,10 @@ class HKAdapter:
     def sdk_clean(self):
         result = self.call_cpp("NET_DVR_Cleanup")
         logging.info("释放资源", result)
+
+    def logout(self, userId=0):
+        result = self.call_cpp("NET_DVR_Logout", userId)
+        logging.info("登出", result)
 
     # 用户登录指定摄像机设备
     def login(self, address="192.168.1.1", port=8000, user="admin", pwd="admin"):
@@ -97,3 +102,17 @@ class HKAdapter:
             logging.error(address + ", 登录错误信息：" + str(error_info))
 
         return user_id
+
+    def start_realplay(self, userId=0):
+        req = preview.NET_DVR_PREVIEWINFO()
+        req.hPlayWnd = None
+        req.lChannel = 1  # 预览通道号
+        req.dwStreamType = 0  # 码流类型：0-主码流，1-子码流，2-三码流，3-虚拟码流，以此类推
+        req.dwLinkMode = 0  # 连接方式：0-TCP方式，1-UDP方式，2-多播方式，3-RTP方式，4-RTP/RTSP，5-RTP/HTTP,6-HRUDP（可靠传输）
+        req.bBlocked = 1  # 0-非阻塞 1-阻塞
+        struPlayInfo = byref(req)
+        lRealPlayHandle = self.call_cpp("NET_DVR_RealPlay_V40", userId, struPlayInfo, None, None)
+        if lRealPlayHandle < 0:
+            self.logout(userId)
+            self.sdk_clean()
+        return lRealPlayHandle
