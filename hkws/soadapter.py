@@ -4,6 +4,10 @@ import logging
 import hkws.model.login as login
 import hkws.model.preview as preview
 
+from hkws.callback import hikFunc
+
+from hkws.callback import g_real_data_call_back
+
 
 class HKAdapter:
     so_list = []
@@ -103,7 +107,7 @@ class HKAdapter:
 
         return user_id
 
-    def start_realplay(self, userId=0):
+    def start_preview(self, cbFunc: hikFunc, userId=0):
         req = preview.NET_DVR_PREVIEWINFO()
         req.hPlayWnd = None
         req.lChannel = 1  # 预览通道号
@@ -111,8 +115,18 @@ class HKAdapter:
         req.dwLinkMode = 0  # 连接方式：0-TCP方式，1-UDP方式，2-多播方式，3-RTP方式，4-RTP/RTSP，5-RTP/HTTP,6-HRUDP（可靠传输）
         req.bBlocked = 1  # 0-非阻塞 1-阻塞
         struPlayInfo = byref(req)
-        lRealPlayHandle = self.call_cpp("NET_DVR_RealPlay_V40", userId, struPlayInfo, None, None)
+        # 这个回调函数不适合长时间占用
+        # fRealDataCallBack_V30 = preview.REALDATACALLBACK
+
+        lRealPlayHandle = self.call_cpp("NET_DVR_RealPlay_V40", userId, struPlayInfo, cbFunc, None)
+        print("start_preview lrealPlayHandle is ", lRealPlayHandle)
         if lRealPlayHandle < 0:
             self.logout(userId)
             self.sdk_clean()
         return lRealPlayHandle
+
+    def stop_preview(self, lRealPlayHandle):
+        self.call_cpp("NET_DVR_StopRealPlay", lRealPlayHandle)
+
+    def callback_real_data(self, lRealPlayHandle: c_long, cbFunc: g_real_data_call_back, dwUser: c_ulong):
+        return self.call_cpp("NET_DVR_SetRealDataCallBack", lRealPlayHandle, cbFunc, dwUser)
