@@ -37,6 +37,7 @@ process_this_frame = True
 
 
 def checkPic(frame):
+    t = time.time()
     # Resize frame of video to 1/4 size for faster face recognition processing
     small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
 
@@ -69,6 +70,7 @@ def checkPic(frame):
             face_names.append(name)
         if face_names.__len__() > 0:
             print(face_names)
+    print(time.time() * 1000 - t * 1000)
 
 
 previous = int(round(time.time() * 1000))
@@ -76,7 +78,7 @@ while True:
     # Grab a single frame of video
     ret, frame = video_capture.read()
     current = int(round(time.time() * 1000))
-    if current - previous > 200:
+    if current - previous > 5000:
         # loop.run_until_complete(checkPic(frame))
         previous = current
         _thread.start_new_thread(checkPic, (frame,))
