@@ -1,22 +1,28 @@
-from numba import jit
+from numba import jit, uint8, i8, vectorize
+import numba as nb
 import numpy as np
+import datetime
+import cv2
+import array
 
-SIZE = 2000
-x = np.random.random((SIZE, SIZE))
-
-"""
-给定n*n矩阵，对矩阵每个元素计算tanh值，然后求和。
-因为要循环矩阵中的每个元素，计算复杂度为 n*n。
-"""
+url = "rtsp://admin:Aa123456@192.168.254.6:554/Streaming/Channels/101"
 
 
-@jit
-def jit_tan_sum(a):  # 函数在被调用时编译成机器语言
-    tan_sum = 0
-    for i in range(SIZE):  # Numba 支持循环
-        for j in range(SIZE):
-            tan_sum += np.tanh(a[i, j])  # Numba 支持绝大多数NumPy函数
-    return tan_sum
+@jit([nb.void(i8, i8)], nopython=True)
+def add_with_vec(yy, c):
+    print(yy, c)
 
 
-print(jit_tan_sum(x))
+@jit([nb.void(uint8[:, :, ::1])], forceobj=True)
+def checkPic(frame):
+    print(nb.typeof(frame))
+
+
+add_with_vec(i8(10), i8(2))
+
+video_capture = cv2.VideoCapture(url)
+ret, frame = video_capture.read()
+
+# print(nb.typeof(frame))
+
+checkPic(frame)
