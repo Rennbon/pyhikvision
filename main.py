@@ -26,6 +26,7 @@ adapter = sdk.HKAdapter()
 adapter.add_lib(cnf.SDKPath, cnf.suffix)
 print(adapter.so_list)
 # init hkws linux sdk
+adapter.set_sdk_config(2, cnfPath)
 initRes = adapter.init_sdk()
 if initRes == False:
     os._exit(0)
@@ -34,11 +35,10 @@ if initRes == False:
 # user login
 userId = adapter.login(cnf.IP, cnf.Port, cnf.User, cnf.Password)
 if userId < 0:
-    adapter.NET_DVR_Cleanup()
+    adapter.sdk_clean()
 
 print("Login successful,the userId is ", userId)
 
-adapter.set_sdk_config(2, cnfPath)
 lRealPlayHandle = adapter.start_preview(None, userId)
 if lRealPlayHandle < 0:
     os._exit(2)
