@@ -196,10 +196,10 @@ class HKAdapter:
 
         polygon = model_1.NET_VCA_POLYGON()
         polygon.dwPointNum = 4
-        polygon.struPos[1] = point_1
-        polygon.struPos[2] = point_2
-        polygon.struPos[3] = point_3
-        polygon.struPos[4] = point_4
+        polygon.struPos[0] = point_1
+        polygon.struPos[1] = point_2
+        polygon.struPos[2] = point_3
+        polygon.struPos[3] = point_4
 
 
         single_face = model_1.NET_VCA_SINGLE_FACESNAPCFG()
@@ -228,6 +228,7 @@ class HKAdapter:
         lpInBuffer.dwValidFaceTime = 1
         lpInBuffer_ref = byref(lpInBuffer)
         size = sizeof(lpInBuffer)
+        print("size", size)
 
         set_dvr_result = self.call_cpp("NET_DVR_SetDVRConfig", user_id, 5002, 1, lpInBuffer_ref, size)
         if not set_dvr_result:

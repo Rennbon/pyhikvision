@@ -167,7 +167,7 @@ class NET_VCA_POINT(Structure):
 class NET_VCA_POLYGON(Structure):
     _fields_ = [
         ("dwPointNum", c_uint32),
-        ("struPos", NET_VCA_POINT*10)
+        ("struPos", NET_VCA_POINT*4)
     ]
 
 # 人脸抓拍规则参数（单条）结构体
