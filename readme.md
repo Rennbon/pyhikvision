@@ -28,3 +28,13 @@ vim hikvsdk.conf
 ldconfig
 
 ```
+
+### 注意：
+{pyhikvsion/hkws/lib/HCNetSDKCom/在Linux中的绝对路径}
+{pyhikvsion/hkws/lib/在Linux中的绝对路径}
+相对应的系统路径需要加最后需要加"/",因为该库Python的加载逻辑中没有拼接"/"
+如： 
+```
+/opt/hkws/lib/
+/opt/hkws/lib/HCNetSDKCom/
+```
