@@ -38,22 +38,30 @@ if userId < 0:
     adapter.sdk_clean()
 
 print("Login successful,the userId is ", userId)
-set_dvr_config = adapter.set_dvr_config(userId)
-print("设置设备信息结果为 ", set_dvr_config)
-data = adapter.setup_alarm_chan_v31(cb.face_alarm_call_back, userId)
-print("设置回调函数结果", data)
-# 布防
-alarm_result = adapter.setup_alarm_chan_v41(userId)
-print("设置人脸v41布防结果", alarm_result)
 
-# lRealPlayHandle = adapter.start_preview(None, userId)
-# if lRealPlayHandle < 0:
-#     os._exit(2)
-# print("Start preview successful,the lRealPlayHandle is ", lRealPlayHandle)
-# callback = adapter.callback_real_data(lRealPlayHandle, cb.g_real_data_call_back, userId)
-# print('callback_real_data result is ', callback)
-time.sleep(20)
-adapter.close_alarm(alarm_result)
+
+# set_dvr_config = adapter.set_dvr_config(userId)
+# print("设置设备信息结果为 ", set_dvr_config)
+# data = adapter.setup_alarm_chan_v31(cb.face_alarm_call_back, userId)
+# print("设置回调函数结果", data)
+# # 布防
+# alarm_result = adapter.setup_alarm_chan_v41(userId)
+# print("设置人脸v41布防结果", alarm_result)
+
+
+
+lRealPlayHandle = adapter.start_preview(None, userId)
+if lRealPlayHandle < 0:
+    os._exit(2)
+print("Start preview successful,the lRealPlayHandle is ", lRealPlayHandle)
+callback = adapter.callback_real_data(lRealPlayHandle, cb.g_real_data_call_back, userId)
+print('callback_real_data result is ', callback)
+
+
+time.sleep(2)
+
+
+# adapter.close_alarm(alarm_result)
 # adapter.stop_preview(lRealPlayHandle)
 adapter.logout(userId)
 adapter.sdk_clean()
