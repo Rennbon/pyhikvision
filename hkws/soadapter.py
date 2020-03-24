@@ -141,7 +141,10 @@ class HKAdapter:
         res = self.call_cpp("NET_DVR_SetSDKInitCfg", enumType, ndlsp_ptr)
         logging.warning("call NET_DVR_SetSDKInitCfg result：" + str(res))
         return res
-
+    # msg 描述前缀
+    def print_error(self, msg=""):
+        error_info = self.call_cpp("NET_DVR_GetLastError")
+        logging.error(msg + str(error_info))
     def stop_preview(self, lRealPlayHandle):
         self.call_cpp("NET_DVR_StopRealPlay", lRealPlayHandle)
 
