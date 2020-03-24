@@ -90,7 +90,14 @@ class NET_VCA_HUMAN_FEATURE(Structure):
         ("byEyeGlass", c_byte),
         ("byAge", c_byte),
         ("byAgeDeviation", c_byte),
-        ("byRes", c_byte * 11)
+        ("byEthnic", c_byte),
+        ("byMask", c_byte),
+        ("bySmile", c_byte),
+        ("byFaceExpression", c_byte),
+        ("byBeard", c_byte),
+        ("byRace", c_byte),
+        ("byHat", c_byte),
+        ("byRes", c_byte * 4)
     ]
 
 
@@ -116,8 +123,83 @@ class NET_VCA_FACESNAP_RESULT(Structure):
         ("sStorageIP", c_char * 16),
         ("wStoragePort", c_uint16),
         ("wDevInfoIvmsChannelEx", c_uint16),
-        ("byRes1", c_byte * 15),
+
+        ("byFacePicQuality", c_byte),
+        ("byUIDLen", c_byte),
+        ("byLivenessDetectionStatus", c_byte),
+        ("byAddInfo", c_byte),
+        ("byTimeDiffFlag", c_byte),
+        ("cTimeDifferenceH", c_char),
+        ("cTimeDifferenceM", c_char),
+
         ("byBrokenNetHttp", c_byte),
         ("pBuffer1", c_void_p),
         ("pBuffer2", c_void_p)
+    ]
+
+
+# JPEG图像信息结构体。
+class NET_DVR_JPEGPARA(Structure):
+    _fields_ = [
+        ("wPicSize", c_uint16),
+        ("wPicQuality", c_uint16),
+    ]
+
+# 尺寸过滤器参数结构体
+class NET_VCA_SIZE_FILTER(Structure):
+    _fields_ = [
+        ("byActive", c_byte),
+        ("byMode", c_byte),
+        ("byRes", c_byte*2),
+        ("struMiniRect", NET_VCA_RECT),
+        ("struMaxRect", NET_VCA_RECT)
+    ]
+
+# 点坐标参数结构体
+class NET_VCA_POINT(Structure):
+    _fields_ = [
+        ("fX", c_float),
+        ("fY", c_float)
+    ]
+
+
+# 多边形结构体
+class NET_VCA_POLYGON(Structure):
+    _fields_ = [
+        ("dwPointNum", c_uint32),
+        ("struPos", NET_VCA_POINT*10)
+    ]
+
+# 人脸抓拍规则参数（单条）结构体
+class NET_VCA_SINGLE_FACESNAPCFG(Structure):
+    _fields_ = [
+        ("byActive", c_byte),
+        ("byAutoROIEnable", c_byte),
+        ("byRes", c_byte * 2),
+        ("struSizeFilter", NET_VCA_SIZE_FILTER),
+        ("struVcaPolygon", NET_VCA_POLYGON),
+    ]
+
+
+# 人脸抓拍规则参数结构体
+class NET_VCA_FACESNAPCFG(Structure):
+    _fields_ = [
+        ("dwSize", c_uint32),
+        ("bySnapTime", c_byte),
+        ("bySnapInterval", c_byte),
+        ("bySnapThreshold", c_byte),
+        ("byGenerateRate", c_byte),
+        ("bySensitive", c_byte),
+        ("byReferenceBright", c_byte),
+        ("byMatchType", c_byte),
+        ("byMatchThreshold", c_byte),
+        ("struPictureParam", NET_DVR_JPEGPARA),
+        ("struRule", NET_VCA_SINGLE_FACESNAPCFG * 8),
+        ("wFaceExposureMinDuration", c_uint16),
+        ("byFaceExposureMode", c_byte),
+        ("byBackgroundPic", c_byte),
+        ("dwValidFaceTime", c_uint32),
+        ("dwUploadInterval", c_uint32),
+        ("dwFaceFilteringTime", c_uint32),
+        ("byRes2", c_byte * 84)
     ]

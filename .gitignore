@@ -1,2 +1,4 @@
 *.pyc
 *cpython-38.pyc
+MakeAll/
+local_config.ini
