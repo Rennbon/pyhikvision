@@ -24,10 +24,12 @@ cnf.InitConfig(path)
 # new adpter
 adapter = sdk.HKAdapter()
 adapter.add_lib(cnf.SDKPath, cnf.suffix)
+print(adapter.so_list)
 # init hkws linux sdk
 initRes = adapter.init_sdk()
 if initRes == False:
     os._exit(0)
+
 
 # user login
 userId = adapter.login(cnf.IP, cnf.Port, cnf.User, cnf.Password)
@@ -36,6 +38,7 @@ if userId < 0:
 
 print("Login successful,the userId is ", userId)
 
+adapter.set_sdk_config(2, cnfPath)
 lRealPlayHandle = adapter.start_preview(None, userId)
 if lRealPlayHandle < 0:
     os._exit(2)

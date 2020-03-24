@@ -4,12 +4,8 @@ from hkws.soadapter import HKAdapter
 
 
 class TestHKAdapter(TestCase):
-    def test_add_so(self):
+    def test_add_lib(self):
         a = HKAdapter()
-        a.add_so("../lib/")
+        a.add_lib("/Users/zhubin/python/pyhikvsion/hkws/lib/linux",".so")
         print(a.so_list)
 
-    def test_init_sdk(self):
-        a = HKAdapter()
-        a.add_so("/justdo/python/bblock/lib/")
-        bl = a.init_sdk()

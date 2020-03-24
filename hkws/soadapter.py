@@ -52,6 +52,7 @@ class HKAdapter:
             logging.error("SDK初始化错误：" + str(error_info))
             return False
 
+
     # 释放sdk
     def sdk_clean(self):
         result = self.call_cpp("NET_DVR_Cleanup")
@@ -120,10 +121,26 @@ class HKAdapter:
 
         lRealPlayHandle = self.call_cpp("NET_DVR_RealPlay_V40", userId, struPlayInfo, cbFunc, None)
         print("start_preview lrealPlayHandle is ", lRealPlayHandle)
+
         if lRealPlayHandle < 0:
+            error_info = self.call_cpp("NET_DVR_GetLastError")
+            logging.error("call NET_DVR_RealPlay_V40 error：" + str(error_info))
             self.logout(userId)
             self.sdk_clean()
         return lRealPlayHandle
+
+    def set_sdk_config(self, enumType, sdkPath):
+        req  = preview.NET_DVR_LOCAL_SDK_PATH()
+        sPath = bytes(sdkPath, "ascii")
+        i = 0
+        for o in sPath:
+            req.sPath[i] = o
+            i += 1
+
+        ndlsp_ptr = byref(req)
+        res = self.call_cpp("NET_DVR_SetSDKInitCfg", enumType, ndlsp_ptr)
+        logging.warning("call NET_DVR_SetSDKInitCfg result：" + str(res))
+        return res
 
     def stop_preview(self, lRealPlayHandle):
         self.call_cpp("NET_DVR_StopRealPlay", lRealPlayHandle)
