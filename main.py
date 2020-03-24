@@ -19,13 +19,14 @@ if cnfPath == '':
 
 # loadconfig
 cnf = config.Config()
-path = os.path.join(cnfPath, 'config.ini')
+path = os.path.join(cnfPath, 'local_config.ini')
 cnf.InitConfig(path)
 # new adpter
 adapter = sdk.HKAdapter()
 adapter.add_lib(cnf.SDKPath, cnf.suffix)
 print(adapter.so_list)
 # init hkws linux sdk
+adapter.set_sdk_config(2, cnfPath)
 initRes = adapter.init_sdk()
 if initRes == False:
     os._exit(0)
@@ -34,18 +35,25 @@ if initRes == False:
 # user login
 userId = adapter.login(cnf.IP, cnf.Port, cnf.User, cnf.Password)
 if userId < 0:
-    adapter.NET_DVR_Cleanup()
+    adapter.sdk_clean()
 
 print("Login successful,the userId is ", userId)
+set_dvr_config = adapter.set_dvr_config(userId)
+print("设置设备信息结果为 ", set_dvr_config)
+data = adapter.setup_alarm_chan_v31(cb.face_alarm_call_back, userId)
+print("设置回调函数结果", data)
+# 布防
+alarm_result = adapter.setup_alarm_chan_v41(userId)
+print("设置人脸v41布防结果", alarm_result)
 
-adapter.set_sdk_config(2, cnfPath)
-lRealPlayHandle = adapter.start_preview(None, userId)
-if lRealPlayHandle < 0:
-    os._exit(2)
-print("Start preview successful,the lRealPlayHandle is ", lRealPlayHandle)
-callback = adapter.callback_real_data(lRealPlayHandle, cb.g_real_data_call_back, userId)
-print('callback_real_data result is ', callback)
-time.sleep(2)
-adapter.stop_preview(lRealPlayHandle)
+# lRealPlayHandle = adapter.start_preview(None, userId)
+# if lRealPlayHandle < 0:
+#     os._exit(2)
+# print("Start preview successful,the lRealPlayHandle is ", lRealPlayHandle)
+# callback = adapter.callback_real_data(lRealPlayHandle, cb.g_real_data_call_back, userId)
+# print('callback_real_data result is ', callback)
+time.sleep(20)
+adapter.close_alarm(alarm_result)
+# adapter.stop_preview(lRealPlayHandle)
 adapter.logout(userId)
 adapter.sdk_clean()

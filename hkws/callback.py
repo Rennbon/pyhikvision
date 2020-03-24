@@ -1,5 +1,5 @@
 from ctypes import *
-
+from hkws.model.model import *
 filePath = 'D:/project/bblock/db/'
 
 hikFunc = CFUNCTYPE(
@@ -18,7 +18,31 @@ def g_real_data_call_back(lRealPlayHandle: c_long,
                           pBuffer: c_byte,
                           dwBufSize: c_ulong,
                           dwUser: c_ulong):
-    print(' aaaaaaaaaaa callback pBufSize is ', lRealPlayHandle, dwBufSize)
+    print(' aaaaaaaaaaa callback pBufSize is ', lRealPlayHandle, pBuffer, dwBufSize)
+    # buffer = create_string_buffer(c_byte, dwBufSize)
+    # memmove(buffer, pBuffer, dwBufSize)
+
     # if dwBufSize > 0:
     #     f = open(filePath, 'wb')
     #     f.write(pBuffer)
+
+
+alarm_stracture = CFUNCTYPE(
+    c_bool,
+    c_long,
+    NET_DVR_ALARMER,
+    NET_VCA_FACESNAP_RESULT,
+    c_ulong,
+    c_void_p,
+)
+
+
+@CFUNCTYPE(c_bool, c_long, NET_DVR_ALARMER, c_char, c_ulong, c_void_p)
+def face_alarm_call_back(lCommand: 0x1112,
+                         pAlarmer: NET_DVR_ALARMER,
+                         pAlarmInfo: NET_VCA_FACESNAP_RESULT,
+                         dwBufLen: c_ulong,
+                         pUser: c_void_p):
+    print("lCommand ", lCommand)
+    print("检测到人脸")
+    return True
