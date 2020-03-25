@@ -142,8 +142,11 @@ class HKAdapter:
     def stop_preview(self, lRealPlayHandle):
         self.call_cpp("NET_DVR_StopRealPlay", lRealPlayHandle)
 
+    # def callback_real_data(self, lRealPlayHandle: c_long, cbFunc: g_real_data_call_back, dwUser: c_ulong):
+    #     return self.call_cpp("NET_DVR_SetRealDataCallBack", lRealPlayHandle, cbFunc, dwUser)
     def callback_real_data(self, lRealPlayHandle: c_long, cbFunc: g_real_data_call_back, dwUser: c_ulong):
-        return self.call_cpp("NET_DVR_SetRealDataCallBack", lRealPlayHandle, cbFunc, dwUser)
+        return self.call_cpp("NET_DVR_SetStandardDataCallBack", lRealPlayHandle, cbFunc, dwUser)
+
 
     def setup_alarm_chan_v31(self, cbFunc: face_alarm_call_back, user_id=0):
         result = self.call_cpp("NET_DVR_SetDVRMessageCallBack_V31", cbFunc, user_id)
@@ -171,8 +174,18 @@ class HKAdapter:
         stru_pic_param.wPicSize = 5
         stru_pic_param.wPicQuality = 1
 
+        struc_rect = model_1.NET_VCA_RECT()
+        struc_rect.fX = 0
+        struc_rect.fY = 0
+        struc_rect.fWidth = 0
+        struc_rect.fHeight = 0
+
+
         size_filter = model_1.NET_VCA_SIZE_FILTER()
         size_filter.byActive = 0
+        size_filter.byMode = 0
+        size_filter.struMiniRect = struc_rect
+        size_filter.struMaxRect = struc_rect
 
         point_1 = model_1.NET_VCA_POINT()
         point_1.fX = 0.01
@@ -198,12 +211,14 @@ class HKAdapter:
         polygon.struPos[3] = point_4
 
         single_face = model_1.NET_VCA_SINGLE_FACESNAPCFG()
-        single_face.byActive = 1
+        single_face.byActive = 0
         single_face.byAutoROIEnable = 0
         single_face.struSizeFilter = size_filter
         single_face.struVcaPolygon = polygon
 
         lpInBuffer = model_1.NET_VCA_FACESNAPCFG()
+        size = sizeof(lpInBuffer)
+        lpInBuffer.dwSize = size
         lpInBuffer.bySnapTime = 1
         lpInBuffer.bySnapInterval = 5
         lpInBuffer.bySnapThreshold = 70
@@ -214,14 +229,18 @@ class HKAdapter:
         lpInBuffer.byMatchThreshold = 50
 
         lpInBuffer.struPictureParam = stru_pic_param
-        # lpInBuffer.struRule = 
+        lpInBuffer.struRule[0] = single_face
 
         lpInBuffer.wFaceExposureMinDuration = 1
         lpInBuffer.byFaceExposureMode = 0
+        lpInBuffer.byBackgroundPic = 0
         lpInBuffer.dwValidFaceTime = 1
+        lpInBuffer.dwUploadInterval = 800
+        lpInBuffer.dwFaceFilteringTime = 5
         lpInBuffer_ref = byref(lpInBuffer)
-        size = sizeof(lpInBuffer)
+        print(lpInBuffer)
         print("size", size)
+        print(lpInBuffer_ref)
 
         set_dvr_result = self.call_cpp("NET_DVR_SetDVRConfig", user_id, 5002, 1, lpInBuffer_ref, size)
         if not set_dvr_result:

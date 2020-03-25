@@ -194,7 +194,7 @@ class NET_VCA_FACESNAPCFG(Structure):
         ("byMatchType", c_byte),
         ("byMatchThreshold", c_byte),
         ("struPictureParam", NET_DVR_JPEGPARA),
-        ("struRule", NET_VCA_SINGLE_FACESNAPCFG * 8),
+        ("struRule", NET_VCA_SINGLE_FACESNAPCFG * 1),
         ("wFaceExposureMinDuration", c_uint16),
         ("byFaceExposureMode", c_byte),
         ("byBackgroundPic", c_byte),
