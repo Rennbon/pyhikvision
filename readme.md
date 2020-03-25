@@ -1,3 +1,17 @@
+### config.ini配置
+```
+SDKPath: .dll或.so的根目录，会遍历加载，填根SDK目录即可
+User: 摄像头访问用户名，需要在海康威视图形界面上自己配置
+Password: 摄像头访问密码，需要在海康威视图形界面上自己配置
+Port: 摄像头端口
+IP: 摄像头ip
+Plat: 枚举值 0:linux    1:windows
+```
+
+### 启动方式
+```
+python3 main.py -c "配置文件目录，不需要带config.ini"
+```
 ### Linux SDK加载107问题解决方案
 1. 将SDK动态库路径加入到LD_LIBRARY_PATH环境变量
 ```
