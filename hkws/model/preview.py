@@ -4,9 +4,11 @@ from ctypes import *
 # 设置sdk加载路劲
 class NET_DVR_LOCAL_SDK_PATH(Structure):
     _fields_ = [
-        ("sPath", c_byte*256),
-        ("byRes", c_byte*128)
+        ("sPath", c_byte * 256),
+        ("byRes", c_byte * 128)
     ]
+
+
 # 预览参数结构体
 class NET_DVR_PREVIEWINFO(Structure):
     _fields_ = [

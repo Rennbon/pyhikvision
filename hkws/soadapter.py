@@ -53,7 +53,6 @@ class HKAdapter:
             logging.error("SDK初始化错误：" + str(error_info))
             return False
 
-
     # 释放sdk
     def sdk_clean(self):
         result = self.call_cpp("NET_DVR_Cleanup")
@@ -67,11 +66,8 @@ class HKAdapter:
     def login(self, address="192.168.1.1", port=8000, user="admin", pwd="admin"):
         # 设置连接时间
         set_overtime = self.call_cpp("NET_DVR_SetConnectTime", 5000, 4)  # 设置超时
-        if set_overtime:
-            logging.info(address + ", 设置超时时间成功")
-        else:
-            error_info = self.call_cpp("NET_DVR_GetLastError")
-            logging.error(address + ", 设置超时错误信息：" + str(error_info))
+        if not set_overtime:
+            self.print_error("NET_DVR_SetConnectTime 设置超时错误信息失败：the error code is ")
             return False
         # 设置重连
         self.call_cpp("NET_DVR_SetReconnect", 10000, True)
@@ -102,11 +98,8 @@ class HKAdapter:
         loginInfo1 = byref(struLoginInfo)
         loginInfo2 = byref(device_info)
         user_id = self.call_cpp("NET_DVR_Login_V40", loginInfo1, loginInfo2)
-        logging.info(address + ", 登录结果：" + str(user_id))
         if user_id == -1:  # -1表示失败，其他值表示返回的用户ID值。
-            error_info = self.call_cpp("NET_DVR_GetLastError")
-            logging.error(address + ", 登录错误信息：" + str(error_info))
-
+            self.print_error("NET_DVR_Login_V40 用户登录失败: the error code is ")
         return user_id
 
     def start_preview(self, cbFunc: hikFunc, userId=0):
@@ -121,17 +114,15 @@ class HKAdapter:
         # fRealDataCallBack_V30 = preview.REALDATACALLBACK
 
         lRealPlayHandle = self.call_cpp("NET_DVR_RealPlay_V40", userId, struPlayInfo, cbFunc, None)
-        print("start_preview lrealPlayHandle is ", lRealPlayHandle)
 
         if lRealPlayHandle < 0:
-            error_info = self.call_cpp("NET_DVR_GetLastError")
-            logging.error("call NET_DVR_RealPlay_V40 error：" + str(error_info))
+            self.print_error("NET_DVR_RealPlay_V40 启动预览失败: the error code is")
             self.logout(userId)
             self.sdk_clean()
         return lRealPlayHandle
 
     def set_sdk_config(self, enumType, sdkPath):
-        req  = preview.NET_DVR_LOCAL_SDK_PATH()
+        req = preview.NET_DVR_LOCAL_SDK_PATH()
         sPath = bytes(sdkPath, "ascii")
         i = 0
         for o in sPath:
@@ -142,10 +133,12 @@ class HKAdapter:
         res = self.call_cpp("NET_DVR_SetSDKInitCfg", enumType, ndlsp_ptr)
         logging.warning("call NET_DVR_SetSDKInitCfg result：" + str(res))
         return res
+
     # msg 描述前缀
     def print_error(self, msg=""):
         error_info = self.call_cpp("NET_DVR_GetLastError")
         logging.error(msg + str(error_info))
+
     def stop_preview(self, lRealPlayHandle):
         self.call_cpp("NET_DVR_StopRealPlay", lRealPlayHandle)
 
@@ -158,7 +151,7 @@ class HKAdapter:
             error_info = self.call_cpp("NET_DVR_GetLastError")
             logging.error("NET_DVR_SetupAlarmChan_V41" + str(error_info))
         return result
-    
+
     def setup_alarm_chan_v41(self, user_id=0):
         structure_l = model_1.NET_DVR_SETUPALARM_PARAM()
         structure_l.byFaceAlarmDetection = 0
@@ -204,14 +197,11 @@ class HKAdapter:
         polygon.struPos[2] = point_3
         polygon.struPos[3] = point_4
 
-
         single_face = model_1.NET_VCA_SINGLE_FACESNAPCFG()
         single_face.byActive = 1
         single_face.byAutoROIEnable = 0
         single_face.struSizeFilter = size_filter
         single_face.struVcaPolygon = polygon
-
-
 
         lpInBuffer = model_1.NET_VCA_FACESNAPCFG()
         lpInBuffer.bySnapTime = 1
