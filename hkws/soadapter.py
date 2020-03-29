@@ -5,7 +5,7 @@ import hkws.model.login as login
 import hkws.model.preview as preview
 import hkws.model.model as model_1
 
-from hkws.callback import hikFunc
+from hkws.callback import hikFunc, alarm_stracture
 
 from hkws.callback import g_real_data_call_back, face_alarm_call_back
 
@@ -144,15 +144,15 @@ class HKAdapter:
 
     # def callback_real_data(self, lRealPlayHandle: c_long, cbFunc: g_real_data_call_back, dwUser: c_ulong):
     #     return self.call_cpp("NET_DVR_SetRealDataCallBack", lRealPlayHandle, cbFunc, dwUser)
-    def callback_real_data(self, lRealPlayHandle: c_long, cbFunc: g_real_data_call_back, dwUser: c_ulong):
-        return self.call_cpp("NET_DVR_SetStandardDataCallBack", lRealPlayHandle, cbFunc, dwUser)
+    def callback_real_data(self, lRealPlayHandle: c_long, cbFunc: g_real_data_call_back, dwUser: c_uint):
+        result = self.call_cpp("NET_DVR_SetStandardDataCallBack", lRealPlayHandle, cbFunc, dwUser)
+        if result is False:
+            self.print_error("NET_DVR_SetStandardDataCallBack 注册捕获实时流码回调函数失败: the error code is ")
 
-
-    def setup_alarm_chan_v31(self, cbFunc: face_alarm_call_back, user_id=0):
-        result = self.call_cpp("NET_DVR_SetDVRMessageCallBack_V31", cbFunc, user_id)
+    def setup_alarm_chan_v31(self, cbFunc: face_alarm_call_back):
+        result = self.call_cpp("NET_DVR_SetDVRMessageCallBack_V31", cbFunc, None)
         if result == -1:
-            error_info = self.call_cpp("NET_DVR_GetLastError")
-            logging.error("NET_DVR_SetupAlarmChan_V41" + str(error_info))
+            self.print_error("NET_DVR_SetDVRMessageCallBack_V31 设置报警回调函数失败: the error code is ")
         return result
 
     def setup_alarm_chan_v41(self, user_id=0):
@@ -161,8 +161,7 @@ class HKAdapter:
         structure_l_ref = byref(structure_l)
         result = self.call_cpp("NET_DVR_SetupAlarmChan_V41", user_id, structure_l_ref)
         if result == -1:
-            error_info = self.call_cpp("NET_DVR_GetLastError")
-            logging.error("NET_DVR_SetupAlarmChan_V41" + str(error_info))
+            self.print_error("NET_DVR_SetupAlarmChan_V41 报警布放失败: the error code is ")
         return result
 
     def close_alarm(self, alarm_result):
@@ -179,7 +178,6 @@ class HKAdapter:
         struc_rect.fY = 0
         struc_rect.fWidth = 0
         struc_rect.fHeight = 0
-
 
         size_filter = model_1.NET_VCA_SIZE_FILTER()
         size_filter.byActive = 0

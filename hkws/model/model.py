@@ -16,7 +16,7 @@ class NET_DVR_ALARMER(Structure):
         ("sSerialNumber", c_byte * 48),
         ("dwDeviceVersion", c_uint32),
         ("sDeviceName", c_char * 32),
-        ("byMacAddr", c_char * 6),
+        ("byMacAddr", c_byte * 6),
         ("wLinkPort", c_uint16),
         ("sDeviceIP", c_char * 128),
         ("sSocketIP", c_char * 128),
