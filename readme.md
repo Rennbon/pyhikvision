@@ -57,4 +57,4 @@ ldconfig
 
 ### 联系方式：
 以下为QQ交流群QR-Code:
-![联系方式](./qq.jpeg)
+![联系方式](./qq.jpg)
