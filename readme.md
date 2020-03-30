@@ -1,3 +1,12 @@
+### 理念
+- 海康威视摄像头等硬件官方提供有SDK动态库，另外Python社区的AI库是最强的，所以Python对应的开发环境也是有一定场景的，尤其是基于图像功能的二次开发。
+- 海康威视SDK偏函数式编程，且直接基于动态SDK二次开发较为复杂，实现一个接口的调用要查阅很多资料，还要对比官方的其他语言的Demo库，很不方便。
+
+所以这里打算维护迭代海康威视动态SDK基于Python3的开源库以减轻二次开发的难度。
+
+### Python 版本
+python 3.6
+
 ### local_config.ini配置（主目录下config.ini修改为local_config.ini即可）
 ```
 [DEFAULT]
@@ -11,19 +20,17 @@ Plat: 枚举值 0:linux    1:windows
 
 ### 启动方式
 ```
-python3 main.py -c "配置文件目录，不需要带config.ini"
+python3 main.py -c "配置文件目录，不需要带local_config.ini"
 ```
+
 ### Linux SDK加载107问题解决方案
 1. 将SDK动态库路径加入到LD_LIBRARY_PATH环境变量
 ```
 # 修改系统预加载项,增加一行export
 vim ~/.bashrc
-export  LD_LIBRARY_PATH=$LD_LIBRARY_PATH:{pyhikvsion/hkws/lib/在Linux中的绝对路径}:{pyhikvsion/hkws/lib/HCNetSDKCom/在Linux中的绝对路径}
+export  LD_LIBRARY_PATH=$LD_LIBRARY_PATH:{官方动态库MakeAll所对应的Linux中的绝对路径}:{官方动态库MakeAll/HCNetSDKCom/在Linux中的绝对路径}
 source ~/.bashrc
 
-vim /etc/profile
-export  LD_LIBRARY_PATH=$LD_LIBRARY_PATH:{pyhikvsion/hkws/lib/在Linux中的绝对路径}:{pyhikvsion/hkws/lib/HCNetSDKCom/在Linux中的绝对路径}
-source /etc/profile
 ```
 2. 在/etc/ld.so/conf下增加sdk路径
 ```
@@ -36,8 +43,8 @@ cd /etc/ld.so.conf.d
 
 vim hikvsdk.conf
 #加入以下2个路径
-{pyhikvsion/hkws/lib/HCNetSDKCom/在Linux中的绝对路径}
-{pyhikvsion/hkws/lib/在Linux中的绝对路径}
+{官方动态库MakeAll所对应的Linux中的绝对路径}
+{官方动态库MakeAll/HCNetSDKCom/在Linux中的绝对路径}
 
 //保存完后执行以下命令重新加载系统.so配置
 ldconfig
@@ -45,8 +52,8 @@ ldconfig
 ```
 
 ### 注意：
-{pyhikvsion/hkws/lib/HCNetSDKCom/在Linux中的绝对路径}
-{pyhikvsion/hkws/lib/在Linux中的绝对路径}
+{官方动态库MakeAll所对应的Linux中的绝对路径}
+{官方动态库MakeAll/HCNetSDKCom/在Linux中的绝对路径}
 相对应的系统路径需要加最后需要加"/",因为该库Python的加载逻辑中没有拼接"/"
 如： 
 ```
@@ -58,8 +65,8 @@ ldconfig
 1. 该库我们将会以社区化的方式维护，欢迎提交pull request
 2. 本库配有QQ群（901635269）
 
-![QQ群](./doc/qq-qr.jpg)
 <img src="./doc/qq-qr.jpg" width="100px" >
-3. 以下是支付宝捐赠入口，我们将用于设备采集，完善开源库。
+3. 以下是支付宝捐赠入口，我们将用于设备采集，完善开源库，也接受硬件捐赠。
 
-![捐赠](./doc/donate.jpg)
+<img src="./doc/donate.jpg" width="100px" >
+
