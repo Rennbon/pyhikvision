@@ -1,5 +1,6 @@
-### config.ini配置
+### local_config.ini配置（主目录下config.ini修改为local_config.ini即可）
 ```
+[DEFAULT]
 SDKPath: .dll或.so的根目录，会遍历加载，填根SDK目录即可
 User: 摄像头访问用户名，需要在海康威视图形界面上自己配置
 Password: 摄像头访问密码，需要在海康威视图形界面上自己配置
@@ -53,8 +54,12 @@ ldconfig
 /opt/hkws/lib/HCNetSDKCom/
 ```
 
+### 维护及联系：
+1. 该库我们将会以社区化的方式维护，欢迎提交pull request
+2. 本库配有QQ群（901635269）
 
+![QQ群](./doc/qq-qr.jpg)
+<img src="./doc/qq-qr.jpg" width="100px" >
+3. 以下是支付宝捐赠入口，我们将用于设备采集，完善开源库。
 
-### 联系方式：
-以下为QQ交流群QR-Code:
-![联系方式](./qq.jpg)
+![捐赠](./doc/donate.jpg)
