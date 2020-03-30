@@ -122,8 +122,5 @@ class CameraAdapter(BaseAdapter):
 
         set_dvr_result = self.call_cpp("NET_DVR_SetDVRConfig", user_id, 5002, 1, lpInBuffer_ref, size)
         if not set_dvr_result:
-            self.print_error("NET_DVR_SetDVRConfig 启动预览失败: the error code is")
-            error_info = self.call_cpp("NET_DVR_GetLastError")
-            logging.error("设置设备的配置信息错误为：" + str(error_info))
-
+            self.print_error("NET_DVR_SetDVRConfig 启动预览失败: the error code is ")
         return set_dvr_result
