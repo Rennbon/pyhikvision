@@ -23,7 +23,7 @@ class CameraAdapter(BaseAdapter):
         lRealPlayHandle = self.call_cpp("NET_DVR_RealPlay_V40", userId, struPlayInfo, cbFunc, None)
 
         if lRealPlayHandle < 0:
-            self.print_error("NET_DVR_RealPlay_V40 启动预览失败: the error code is")
+            self.print_error("NET_DVR_RealPlay_V40 启动预览失败: the error code is ")
             self.logout(userId)
             self.sdk_clean()
         return lRealPlayHandle
@@ -36,7 +36,16 @@ class CameraAdapter(BaseAdapter):
     #     return self.call_cpp("NET_DVR_SetRealDataCallBack", lRealPlayHandle, cbFunc, dwUser)
     # 根据lRealPlayHandle订阅视频流
     def callback_real_data(self, lRealPlayHandle: c_long, cbFunc: g_real_data_call_back, dwUser: c_ulong):
-        return self.call_cpp("NET_DVR_SetStandardDataCallBack", lRealPlayHandle, cbFunc, dwUser)
+        result = self.call_cpp("NET_DVR_SetRealDataCallBack", lRealPlayHandle, cbFunc, dwUser)
+        if not result:
+            self.print_error("NET_DVR_SetRealDataCallBack 注册回调函数，捕获实时码流数据失败: the error code is ")
+        return result
+
+    def callback_standard_data(self, lRealPlayHandle: c_long, cbFunc: g_real_data_call_back, dwUser: c_ulong):
+        result = self.call_cpp("NET_DVR_SetStandardDataCallBack", lRealPlayHandle, cbFunc, dwUser)
+        if not result:
+            self.print_error("NET_DVR_SetStandardDataCallBack 注册回调函数，捕获实时码流数据(标准流码)失败: the error code is ")
+        return result
 
     # 设置设备的配置信息
     def set_dvr_config(self, user_id=0):
