@@ -1,15 +1,12 @@
 from ctypes import *
-import os
-import logging
-from hkws.model import base, camera, alarm
+from hkws.model import base, camera, alarm, callbacks
 from hkws.base_adapter import BaseAdapter
 
-from hkws.callback import g_real_data_call_back, face_alarm_call_back
 
-
+# 摄像器适配器
 class CameraAdapter(BaseAdapter):
     # 启动预览
-    def start_preview(self, cbFunc: g_real_data_call_back, userId=0):
+    def start_preview(self, cbFunc: callbacks.real_data_callback, userId=0):
         req = camera.NET_DVR_PREVIEWINFO()
         req.hPlayWnd = None
         req.lChannel = 1  # 预览通道号
@@ -35,13 +32,13 @@ class CameraAdapter(BaseAdapter):
     # def callback_real_data(self, lRealPlayHandle: c_long, cbFunc: g_real_data_call_back, dwUser: c_ulong):
     #     return self.call_cpp("NET_DVR_SetRealDataCallBack", lRealPlayHandle, cbFunc, dwUser)
     # 根据lRealPlayHandle订阅视频流
-    def callback_real_data(self, lRealPlayHandle: c_long, cbFunc: g_real_data_call_back, dwUser: c_ulong):
+    def callback_real_data(self, lRealPlayHandle: c_long, cbFunc: callbacks.real_data_callback , dwUser: c_ulong):
         result = self.call_cpp("NET_DVR_SetRealDataCallBack", lRealPlayHandle, cbFunc, dwUser)
         if not result:
             self.print_error("NET_DVR_SetRealDataCallBack 注册回调函数，捕获实时码流数据失败: the error code is ")
         return result
 
-    def callback_standard_data(self, lRealPlayHandle: c_long, cbFunc: g_real_data_call_back, dwUser: c_ulong):
+    def callback_standard_data(self, lRealPlayHandle: c_long, cbFunc: callbacks.real_data_callback, dwUser: c_ulong):
         result = self.call_cpp("NET_DVR_SetStandardDataCallBack", lRealPlayHandle, cbFunc, dwUser)
         if not result:
             self.print_error("NET_DVR_SetStandardDataCallBack 注册回调函数，捕获实时码流数据(标准流码)失败: the error code is ")

@@ -3,7 +3,7 @@ import os
 import sys
 import time
 
-import config
+from hkws import config
 from hkws import *
 
 # 启动函数  python3 main.py -c xxx/xxx

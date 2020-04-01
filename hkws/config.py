@@ -8,7 +8,7 @@ class Config:
     Port = 8000
     IP = '127.0.0.1'
     Plat = '0'  # 0-Linux，1-windows
-    suffix = '.so'
+    Suffix = '.so'
 
     def InitConfig(self, path):
         cnf = configparser.ConfigParser()
@@ -20,5 +20,5 @@ class Config:
         self.IP = cnf.get('DEFAULT', 'IP')
         self.Plat = cnf.get('DEFAULT', 'Plat')
         if self.Plat == '1':
-            self.suffix = '.dll'
+            self.Suffix = '.dll'
         return

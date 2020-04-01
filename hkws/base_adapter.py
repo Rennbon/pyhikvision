@@ -1,14 +1,27 @@
 from ctypes import *
 import os
 import logging
-from hkws.model import base, alarm
-from hkws.callback import face_alarm_call_back
+from hkws.config import Config
+from hkws.model import base, alarm, callbacks
 
 
 # 海康威视基础类，AI摄像机，通用摄像机，门禁产品，出入口产品通用
 class BaseAdapter:
     # 动态sdk文件 .so .dll
     so_list = []
+
+    # 常规启动，初始化SDK到用户注册设备
+    def common_start(self, cnf: Config):
+        userId = -1
+        self.add_lib(cnf.SDKPath, cnf.Suffix)
+        if len(self.so_list) == 0:
+            return userId
+        if not self.init_sdk():
+            return userId
+        userId = self.login(cnf.IP, cnf.Port, cnf.User, cnf.Password)
+        if userId < 0:
+            self.print_error("common_start 失败: the error code is")
+        return userId
 
     # 加载目录下所有so文件
     def add_lib(self, path, suffix):
@@ -117,7 +130,7 @@ class BaseAdapter:
         logging.info("登出", result)
 
     # 设置报警回调函数
-    def setup_alarm_chan_v31(self, cbFunc: face_alarm_call_back, user_id=0):
+    def setup_alarm_chan_v31(self, cbFunc: callbacks.msg_callback_v31, user_id=0):
         result = self.call_cpp("NET_DVR_SetDVRMessageCallBack_V31", cbFunc, user_id)
         if result == -1:
             self.print_error("NET_DVR_SetDVRMessageCallBack_V31 初始化SDK失败: the error code is")
@@ -126,12 +139,12 @@ class BaseAdapter:
     # 设置报警布防
     def setup_alarm_chan_v41(self, user_id=0):
         structure_l = alarm.NET_DVR_SETUPALARM_PARAM()
+        structure_l.dwSize = sizeof(structure_l)
         structure_l.byFaceAlarmDetection = 0
         structure_l_ref = byref(structure_l)
         result = self.call_cpp("NET_DVR_SetupAlarmChan_V41", user_id, structure_l_ref)
         if result == -1:
-            error_info = self.call_cpp("NET_DVR_GetLastError")
-            logging.error("NET_DVR_SetupAlarmChan_V41" + str(error_info))
+            self.print_error("NET_DVR_SetupAlarmChan_V41 报警布防: the error code is")
         return result
 
     # 报警撤防

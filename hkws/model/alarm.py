@@ -1,48 +1,51 @@
 # 硬件产品预警布放相关
-from ctypes import *
+from hkws.core.type_map import *
 
 
 # 报警设备信息结构体
 class NET_DVR_ALARMER(Structure):
     _fields_ = [
-        ("byUserIDValid", c_byte),
-        ("bySerialValid", c_byte),
-        ("byVersionValid", c_byte),
-        ("byDeviceNameValid", c_byte),
-        ("byMacAddrValid", c_byte),
-        ("byLinkPortValid", c_byte),
-        ("byDeviceIPValid", c_byte),
-        ("bySocketIPValid", c_byte),
-        ("lUserID", c_long),
-        ("sSerialNumber", c_byte * 48),
-        ("dwDeviceVersion", c_uint32),
-        ("sDeviceName", c_char * 32),
-        ("byMacAddr", c_char * 6),
-        ("wLinkPort", c_uint16),
-        ("sDeviceIP", c_char * 128),
-        ("sSocketIP", c_char * 128),
-        ("byIpProtocol", c_byte),
-        ("byRes2", c_byte * 11)
+        ("byUserIDValid", h_BYTE),
+        ("bySerialValid", h_BYTE),
+        ("byVersionValid", h_BYTE),
+        ("byDeviceNameValid", h_BYTE),
+        ("byMacAddrValid", h_BYTE),
+
+        ("byLinkPortValid", h_BYTE),
+        ("byDeviceIPValid", h_BYTE),
+        ("bySocketIPValid", h_BYTE),
+        ("lUserID", h_LONG),
+        ("sSerialNumber", h_BYTE * 48),
+
+        ("dwDeviceVersion", h_DWORD),
+        ("sDeviceName", h_CHAR * 32),
+        ("byMacAddr", h_CHAR * 6),
+        ("wLinkPort", h_WORD),
+        ("sDeviceIP", h_CHAR * 128),
+
+        ("sSocketIP", h_CHAR * 128),
+        ("byIpProtocol", h_BYTE),
+        ("byRes2", h_BYTE * 11)
     ]
 
 
 # 布防
 class NET_DVR_SETUPALARM_PARAM(Structure):
     _fields_ = [
-        ("dwSize", c_uint32),
-        ("beLevel", c_byte),
-        ("byAlarmInfoType", c_byte),
-        ("byRetAlarmTypeV40", c_byte),
-        ("byRetDevInfoVersion", c_byte),
-        ("byRetVQDAlarmType", c_byte),
-        ("byFaceAlarmDetection", c_byte),
-        ("bySupport", c_byte),
-        ("byBrokenNetHttp", c_byte),
-        ("wTaskNo", c_uint16),
-        ("byDeployType", c_byte),
-        ("byRes1", c_byte * 3),
-        ("byAlarmTypeURL", c_byte),
-        ("byCustomCtrl", c_byte)
+        ("dwSize", h_DWORD),
+        ("beLevel", h_BYTE),
+        ("byAlarmInfoType", h_BYTE),
+        ("byRetAlarmTypeV40", h_BYTE),
+        ("byRetDevInfoVersion", h_BYTE),
+        ("byRetVQDAlarmType", h_BYTE),
+        ("byFaceAlarmDetection", h_BYTE),
+        ("bySupport", h_BYTE),
+        ("byBrokenNetHttp", h_BYTE),
+        ("wTaskNo", h_WORD),
+        ("byDeployType", h_BYTE),
+        ("byRes1", h_BYTE * 3),
+        ("byAlarmTypeURL", h_BYTE),
+        ("byCustomCtrl", h_BYTE)
     ]
 
 
