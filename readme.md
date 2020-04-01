@@ -19,9 +19,11 @@ IP: 摄像头ip
 Plat: 枚举值 0:linux    1:windows
 ```
 
-### 启动方式
+### example启动方式
+- 将根目录下config.ini 改为local_config.ini
 ```
-python3 main.py -c "配置文件目录，不需要带local_config.ini"
+cd example
+python3 xxx.py
 ```
 
 ### Linux SDK加载107问题解决方案
