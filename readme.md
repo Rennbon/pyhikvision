@@ -67,7 +67,4 @@ ldconfig
 2. 本库配有QQ群（901635269）
 
 <img src="./doc/qq-qr.jpg" width="100px" >
-3. 以下是支付宝捐赠入口，我们将用于设备采集，完善开源库，也接受硬件捐赠。
-
-<img src="./doc/donate.jpg" width="100px" >
 
