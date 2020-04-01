@@ -28,8 +28,6 @@ print("设置人脸v41布防结果", alarm_result)
 
 time.sleep(60)
 adapter.close_alarm(alarm_result)
-# ==================图像类适配器操作===========start================
-
 
 adapter.logout(userId)
 adapter.sdk_clean()
