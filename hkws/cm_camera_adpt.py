@@ -1,5 +1,5 @@
 from ctypes import *
-from hkws.model import base, camera, alarm, callbacks
+from hkws.model import camera, callbacks
 from hkws.base_adapter import BaseAdapter
 
 
