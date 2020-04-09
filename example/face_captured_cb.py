@@ -5,13 +5,12 @@ from hkws.core.type_map import *
 from hkws.model import alarm, camera
 
 
-# @CFUNCTYPE(h_BOOL, h_LONG, POINTER(alarm.NET_DVR_ALARMER), POINTER(h_CHAR), h_DWORD, h_VOID_P)
-def face_alarm_call_back(lCommand: h_BOOL,
+@CFUNCTYPE(h_BOOL, h_LONG, POINTER(alarm.NET_DVR_ALARMER), POINTER(h_CHAR), h_DWORD, h_VOID_P)
+def face_alarm_call_back(lCommand: h_LONG,
                          pAlarmer: POINTER(alarm.NET_DVR_ALARMER),
                          pAlarmInfo: POINTER(h_CHAR),
                          dwBufLen: h_DWORD,
                          pUser: h_VOID_P):
-
     if lCommand == 0x1112:
         temperature = 36.20
         print(lCommand)
@@ -31,7 +30,7 @@ def face_alarm_call_back(lCommand: h_BOOL,
                 lock_file.close()
             current_milli_time = lambda: int(round(time.time() * 1000))
             with open("%s/media/temp_pic/temp%d-%.2f.jpeg" % (
-            os.environ.get("HKSVR_DIR"), current_milli_time(), temperature), "wb") as p_file:
+                    os.environ.get("HKSVR_DIR"), current_milli_time(), temperature), "wb") as p_file:
                 fcntl.flock(p_file.fileno(), fcntl.LOCK_EX)
                 p_file.write(a)
                 p_file.close()
