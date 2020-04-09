@@ -24,7 +24,7 @@ if userId < 0:
     logging.error("初始化Adapter失败")
     os._exit(0)
 
-data = adapter.setup_alarm_chan_v31(callbacks.msg_callback_v31(face_captured_cb), None)
+data = adapter.setup_alarm_chan_v31(face_captured_cb.face_alarm_call_back, userId)
 print("设置回调函数结果", data)
 # 布防
 alarm_result = adapter.setup_alarm_chan_v41(userId)

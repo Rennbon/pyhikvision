@@ -130,7 +130,7 @@ class BaseAdapter:
         logging.info("登出", result)
 
     # 设置报警回调函数
-    def setup_alarm_chan_v31(self, cbFunc: callbacks.msg_callback_v31, user_id=0):
+    def setup_alarm_chan_v31(self, cbFunc, user_id):
         result = self.call_cpp("NET_DVR_SetDVRMessageCallBack_V31", cbFunc, user_id)
         if result == -1:
             self.print_error("NET_DVR_SetDVRMessageCallBack_V31 初始化SDK失败: the error code is")
