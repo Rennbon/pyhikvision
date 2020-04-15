@@ -32,10 +32,8 @@ class CameraAdapter(BaseAdapter):
     # def callback_real_data(self, lRealPlayHandle: c_long, cbFunc: g_real_data_call_back, dwUser: c_ulong):
     #     return self.call_cpp("NET_DVR_SetRealDataCallBack", lRealPlayHandle, cbFunc, dwUser)
     # 根据lRealPlayHandle订阅视频流
-    def callback_real_data(self, lRealPlayHandle: h_LONG, fRealDataCallBack, dwUser: h_DWORD):
-        # cf = CFUNCTYPE(None, h_LONG, h_DWORD, POINTER(h_BYTE), h_DWORD, h_VOID_P)
-        # cb = cf(callback)
-        result = self.call_cpp("NET_DVR_SetRealDataCallBack", lRealPlayHandle, fRealDataCallBack, dwUser)
+    def callback_real_data(self, lRealPlayHandle, cbFunc, dwUser):
+        result = self.call_cpp("NET_DVR_SetRealDataCallBack", lRealPlayHandle, cbFunc, dwUser)
         if not result:
             self.print_error("NET_DVR_SetRealDataCallBack 注册回调函数，捕获实时码流数据失败: the error code is ")
         return result
