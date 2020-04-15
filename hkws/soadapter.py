@@ -4,10 +4,7 @@ import logging
 import hkws.model.login as login
 import hkws.model.preview as preview
 import hkws.model.model as model_1
-
-from hkws.callback import hikFunc, alarm_stracture
-
-from hkws.callback import g_real_data_call_back, face_alarm_call_back
+from hkws.callback import face_alarm_call_back
 
 
 class HKAdapter:
@@ -102,7 +99,7 @@ class HKAdapter:
             self.print_error("NET_DVR_Login_V40 用户登录失败: the error code is ")
         return user_id
 
-    def start_preview(self, cbFunc: hikFunc, userId=0):
+    def start_preview(self, cbFunc, userId=0):
         req = preview.NET_DVR_PREVIEWINFO()
         req.hPlayWnd = None
         req.lChannel = 1  # 预览通道号
@@ -144,8 +141,8 @@ class HKAdapter:
 
     # def callback_real_data(self, lRealPlayHandle: c_long, cbFunc: g_real_data_call_back, dwUser: c_ulong):
     #     return self.call_cpp("NET_DVR_SetRealDataCallBack", lRealPlayHandle, cbFunc, dwUser)
-    def callback_real_data(self, lRealPlayHandle: c_long, cbFunc: g_real_data_call_back, dwUser: c_uint):
-        result = self.call_cpp("NET_DVR_SetStandardDataCallBack", lRealPlayHandle, cbFunc, dwUser)
+    def callback_real_data(self, lRealPlayHandle, cbFunc, dwUser):
+        result = self.call_cpp("NET_DVR_SetRealDataCallBack", lRealPlayHandle, cbFunc, dwUser)
         if result is False:
             self.print_error("NET_DVR_SetStandardDataCallBack 注册捕获实时流码回调函数失败: the error code is ")
 
