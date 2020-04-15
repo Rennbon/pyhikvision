@@ -2,12 +2,12 @@ from hkws.model.model import *
 
 
 #real_data_callback = CFUNCTYPE(None, h_LONG, h_DWORD, POINTER(h_BYTE), h_DWORD, h_DWORD)
-@CFUNCTYPE(None, c_long, c_uint32, POINTER(c_byte), c_uint32, c_uint32)
+@CFUNCTYPE(None, c_long, c_uint, c_byte, c_uint, c_uint)
 def g_real_data_call_back(lRealPlayHandle: c_long,
-                          dwDataType: c_uint32,
-                          pBuffer: POINTER(c_byte),
-                          dwBufSize: c_uint32,
-                          dwUser: c_uint32):
+                          dwDataType: c_uint,
+                          pBuffer: c_byte,
+                          dwBufSize: c_uint,
+                          dwUser: c_uint):
     print(' aaaaaaaaaaa callback pBufSize is ', pBuffer, lRealPlayHandle, dwBufSize)
 
 
