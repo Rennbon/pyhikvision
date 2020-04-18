@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from hkws.soadapter import HKAdapter
+from hkws.base_adapter import HKAdapter
 
 
 class TestHKAdapter(TestCase):

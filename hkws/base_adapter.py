@@ -1,13 +1,11 @@
 from ctypes import *
 import os
 import logging
-import hkws.model.login as login
+from hkws.model import base,camera
 import hkws.model.preview as preview
-import hkws.model.model as model_1
-from hkws.callback import face_alarm_call_back
 
 
-class HKAdapter:
+class BaseAdapter:
     so_list = []
 
     # 加载目录下所有so文件
@@ -73,7 +71,7 @@ class HKAdapter:
         b_user = bytes(user, "ascii")
         b_pwd = bytes(pwd, "ascii")
 
-        struLoginInfo = login.NET_DVR_USER_LOGIN_INFO()
+        struLoginInfo = base.NET_DVR_USER_LOGIN_INFO()
         struLoginInfo.bUseAsynLogin = 0  # 同步登陆
         i = 0
         for o in b_address:
@@ -91,7 +89,7 @@ class HKAdapter:
             struLoginInfo.sPassword[i] = o
             i += 1
 
-        device_info = login.NET_DVR_DEVICEINFO_V40()
+        device_info = base.NET_DVR_DEVICEINFO_V40()
         loginInfo1 = byref(struLoginInfo)
         loginInfo2 = byref(device_info)
         user_id = self.call_cpp("NET_DVR_Login_V40", loginInfo1, loginInfo2)
@@ -100,7 +98,7 @@ class HKAdapter:
         return user_id
 
     def start_preview(self, cbFunc, userId=0):
-        req = preview.NET_DVR_PREVIEWINFO()
+        req = camera.NET_DVR_PREVIEWINFO()
         req.hPlayWnd = None
         req.lChannel = 1  # 预览通道号
         req.dwStreamType = 0  # 码流类型：0-主码流，1-子码流，2-三码流，3-虚拟码流，以此类推
@@ -146,100 +144,7 @@ class HKAdapter:
         if result is False:
             self.print_error("NET_DVR_SetStandardDataCallBack 注册捕获实时流码回调函数失败: the error code is ")
 
-    def setup_alarm_chan_v31(self, cbFunc: face_alarm_call_back):
-        result = self.call_cpp("NET_DVR_SetDVRMessageCallBack_V31", cbFunc, None)
-        if result == -1:
-            self.print_error("NET_DVR_SetDVRMessageCallBack_V31 设置报警回调函数失败: the error code is ")
-        return result
-
-    def setup_alarm_chan_v41(self, user_id=0):
-        structure_l = model_1.NET_DVR_SETUPALARM_PARAM()
-        structure_l.byFaceAlarmDetection = 0
-        structure_l_ref = byref(structure_l)
-        result = self.call_cpp("NET_DVR_SetupAlarmChan_V41", user_id, structure_l_ref)
-        if result == -1:
-            self.print_error("NET_DVR_SetupAlarmChan_V41 报警布放失败: the error code is ")
-        return result
-
     def close_alarm(self, alarm_result):
         return self.call_cpp("NET_DVR_CloseAlarmChan_V30", alarm_result)
 
-    # 设置设备的配置信息
-    def set_dvr_config(self, user_id=0):
-        stru_pic_param = model_1.NET_DVR_JPEGPARA()
-        stru_pic_param.wPicSize = 5
-        stru_pic_param.wPicQuality = 1
 
-        struc_rect = model_1.NET_VCA_RECT()
-        struc_rect.fX = 0
-        struc_rect.fY = 0
-        struc_rect.fWidth = 0
-        struc_rect.fHeight = 0
-
-        size_filter = model_1.NET_VCA_SIZE_FILTER()
-        size_filter.byActive = 0
-        size_filter.byMode = 0
-        size_filter.struMiniRect = struc_rect
-        size_filter.struMaxRect = struc_rect
-
-        point_1 = model_1.NET_VCA_POINT()
-        point_1.fX = 0.01
-        point_1.fY = 0.005
-
-        point_2 = model_1.NET_VCA_POINT()
-        point_2.fX = 0.01
-        point_2.fY = 0.995
-
-        point_3 = model_1.NET_VCA_POINT()
-        point_3.fX = 0.99
-        point_3.fY = 0.995
-
-        point_4 = model_1.NET_VCA_POINT()
-        point_4.fX = 0.99
-        point_4.fY = 0.005
-
-        polygon = model_1.NET_VCA_POLYGON()
-        polygon.dwPointNum = 4
-        polygon.struPos[0] = point_1
-        polygon.struPos[1] = point_2
-        polygon.struPos[2] = point_3
-        polygon.struPos[3] = point_4
-
-        single_face = model_1.NET_VCA_SINGLE_FACESNAPCFG()
-        single_face.byActive = 0
-        single_face.byAutoROIEnable = 0
-        single_face.struSizeFilter = size_filter
-        single_face.struVcaPolygon = polygon
-
-        lpInBuffer = model_1.NET_VCA_FACESNAPCFG()
-        size = sizeof(lpInBuffer)
-        lpInBuffer.dwSize = size
-        lpInBuffer.bySnapTime = 1
-        lpInBuffer.bySnapInterval = 5
-        lpInBuffer.bySnapThreshold = 70
-        lpInBuffer.byGenerateRate = 5
-        lpInBuffer.bySensitive = 4
-        lpInBuffer.byReferenceBright = 40
-        lpInBuffer.byMatchType = 1
-        lpInBuffer.byMatchThreshold = 50
-
-        lpInBuffer.struPictureParam = stru_pic_param
-        lpInBuffer.struRule[0] = single_face
-
-        lpInBuffer.wFaceExposureMinDuration = 1
-        lpInBuffer.byFaceExposureMode = 0
-        lpInBuffer.byBackgroundPic = 0
-        lpInBuffer.dwValidFaceTime = 1
-        lpInBuffer.dwUploadInterval = 800
-        lpInBuffer.dwFaceFilteringTime = 5
-        lpInBuffer_ref = byref(lpInBuffer)
-        print(lpInBuffer)
-        print("size", size)
-        print(lpInBuffer_ref)
-
-        set_dvr_result = self.call_cpp("NET_DVR_SetDVRConfig", user_id, 5002, 1, lpInBuffer_ref, size)
-        if not set_dvr_result:
-            error_info = self.call_cpp("NET_DVR_GetLastError")
-            logging.error("设置设备的配置信息错误为：" + str(error_info))
-
-        return set_dvr_result

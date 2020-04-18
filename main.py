@@ -4,8 +4,8 @@ import sys
 import time
 
 import config
-import hkws.callback as cb
-import hkws.soadapter as sdk
+import callback as cb
+import hkws.base_adapter as sdk
 
 # 启动函数  python3 main.py -c xxx/xxx
 
@@ -24,7 +24,7 @@ cnf = config.Config()
 path = os.path.join(cnfPath, 'local_config.ini')
 cnf.InitConfig(path)
 # new adpter
-adapter = sdk.HKAdapter()
+adapter = sdk.BaseAdapter()
 adapter.add_lib(cnf.SDKPath, cnf.suffix)
 print(adapter.so_list)
 # init hkws linux sdk
