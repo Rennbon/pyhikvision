@@ -1,4 +1,9 @@
-### 警告：目前master分支重构callback那块没调好，请查看其他分支代码。
+### 系统差异
+./hkws/core/type_map.py
+```
+# line 11  DWORD会根据操作系统的不同，被定义成了不同的长度,如果是32位的请自行修改下
+h_DWORD = c_ulong  # 64bit:c_ulong    32bit:c_uint32  
+```
 ### 理念
 - 如果帮助到了您，希望能够获得您的star
 - 海康威视摄像头等硬件官方提供有SDK动态库，另外Python社区的AI库是最强的，所以Python对应的开发环境也是有一定场景的，尤其是基于图像功能的二次开发。

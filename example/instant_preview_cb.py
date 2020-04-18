@@ -3,8 +3,7 @@ from hkws.model import callbacks
 
 
 # 视频流回调函数
-# @callbacks.real_data_callback
-@CFUNCTYPE(None, h_LONG, h_DWORD, POINTER(h_BYTE), h_DWORD, h_DWORD)
+@callbacks.real_data_callback
 def f_real_data_call_back(lRealHandle,
                           dwDataType,
                           pBuffer,
