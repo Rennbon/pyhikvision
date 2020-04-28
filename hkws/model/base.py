@@ -170,3 +170,38 @@ class NET_DVR_ACTIVATECFG(Structure):
         ("sPassword", h_BYTE * PASSWD_LEN),
         ("byRes", h_BYTE * 108)
     ]
+
+
+# SDK状态信息结构体
+class NET_DVR_SDKSTATE(Structure):
+    _fields_ = [
+        ("dwTotalLoginNum", h_DWORD),  # 当前注册用户数
+        ("dwTotalRealPlayNum", h_DWORD),  # 当前实时预览的路数
+        ("dwTotalPlayBackNum", h_DWORD),  # 当前回放或下载的路数
+        ("dwTotalAlarmChanNum", h_DWORD),  # 当前建立报警通道的路数
+        ("dwTotalFormatNum", h_DWORD),  # 当前硬盘格式化的路数
+        ("dwTotalFileSearchNum", h_DWORD),  # 当前文件搜索的路数
+        ("dwTotalLogSearchNum", h_DWORD),  # 当前日志搜索的路数
+        ("dwTotalSerialNum", h_DWORD),  # 当前建立透明通道的路数
+        ("dwTotalUpgradeNum", h_DWORD),  # 当前升级的路数
+        ("dwTotalVoiceComNum", h_DWORD),  # 当前语音转发的路数
+        ("dwTotalBroadCastNum", h_DWORD),  # 当前语音广播的路数
+        (" dwRes", h_DWORD*10),  # 保留，置为0
+    ]
+
+# SDK功能信息结构体
+class NET_DVR_SDKABL(Structure):
+    _fields_ = [
+        ("dwMaxLoginNum", h_DWORD),  # 最大注册用户数
+        ("dwMaxRealPlayNum", h_DWORD),  # 最大实时预览的路数
+        ("dwMaxPlayBackNum", h_DWORD),  # 最大回放或下载的路数
+        ("dwMaxAlarmChanNum", h_DWORD),  # 最大建立报警通道的路数
+        ("dwMaxFormatNum", h_DWORD),  # 最大硬盘格式化的路数
+        ("dwMaxFileSearchNum", h_DWORD),  # 最大文件搜索的路数
+        ("dwMaxLogSearchNum", h_DWORD),  # 最大日志搜索的路数
+        ("dwMaxSerialNum", h_DWORD),  # 最大建立透明通道的路数
+        ("dwMaxUpgradeNum", h_DWORD),  # 最大升级的路数
+        ("dwMaxVoiceComNum", h_DWORD),  # 最大语音转发的路数
+        ("dwMaxBroadCastNum", h_DWORD),  # 最大语音广播的路数
+        (" dwRes", h_DWORD*10),  # 保留，置为0
+    ]

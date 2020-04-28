@@ -160,6 +160,23 @@ class BaseAdapter:
     def get_sdk_build_version(self):
         return self.call_cpp("NET_DVR_GetSDKBuildVersion")
 
+    # 获取当前SDK状态信息失败
+    def get_sdk_state(self):
+        op = base.NET_DVR_SDKSTATE()
+        pSDKState = byref(op)
+        res = self.call_cpp("NET_DVR_GetSDKState", pSDKState)
+        if not res:
+            self.print_error("NET_DVR_GetSDKState 获取当前SDK状态信息失败: the error code is ")
+        return res, op
+
+    # 获取当前SDK的功能信息
+    def get_sdk_abl(self):
+        op = base.NET_DVR_SDKABL()
+        pSDKAbl = byref(op)
+        res = self.call_cpp("NET_DVR_GetSDKAbility", pSDKAbl)
+        if not res:
+            self.print_error("NET_DVR_GetSDKAbility 获取当前SDK功能信息失败: the error code is ")
+        return res, op
     # 激活设备
     def activate_device(self, ip="192.168.1.1", port=8000, pwd="123456"):
 
