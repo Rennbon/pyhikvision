@@ -1,5 +1,6 @@
 # 硬件产品基础结构体定义
 # 包含初始化SDK,用户注册设备等相关结构体
+from hkws.core.const import *
 from hkws.core.type_map import *
 
 
@@ -162,4 +163,10 @@ class NET_DVR_Login_V40(Structure):
     ]
 
 
-
+# 设备激活参数结构体
+class NET_DVR_ACTIVATECFG(Structure):
+    _fields_ = [
+        ("dwSize", h_DWORD),
+        ("sPassword", h_BYTE * PASSWD_LEN),
+        ("byRes", h_BYTE * 108)
+    ]

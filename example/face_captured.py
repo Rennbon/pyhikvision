@@ -8,7 +8,6 @@ rootPath = os.path.split(curPath)[0]
 PathProject = os.path.split(rootPath)[0]
 sys.path.append(rootPath)
 sys.path.append(PathProject)
-from hkws.model import callbacks
 from hkws import cm_camera_adpt, config
 from example import face_captured_cb
 

@@ -133,7 +133,7 @@ class BaseAdapter:
     def setup_alarm_chan_v31(self, cbFunc, user_id):
         result = self.call_cpp("NET_DVR_SetDVRMessageCallBack_V31", cbFunc, user_id)
         if result == -1:
-            self.print_error("NET_DVR_SetDVRMessageCallBack_V31 初始化SDK失败: the error code is")
+            self.print_error("NET_DVR_SetDVRMessageCallBack_V31 初始化SDK失败: the error code is ")
         return result
 
     # 设置报警布防
@@ -144,12 +144,41 @@ class BaseAdapter:
         structure_l_ref = byref(structure_l)
         result = self.call_cpp("NET_DVR_SetupAlarmChan_V41", user_id, structure_l_ref)
         if result == -1:
-            self.print_error("NET_DVR_SetupAlarmChan_V41 报警布防: the error code is")
+            self.print_error("NET_DVR_SetupAlarmChan_V41 报警布防: the error code is ")
         return result
 
     # 报警撤防
     def close_alarm(self, alarm_result):
         return self.call_cpp("NET_DVR_CloseAlarmChan_V30", alarm_result)
+
+    # 获取SDK版本，2个高字节表示主版本，2个低字节表示次版本。如0x00030000：表示版本为3.0。
+    def get_sdk_version(self):
+        return self.call_cpp("NET_DVR_GetSDKVersion")
+
+    # 获取SDK的版本号和Build信息
+    # SDK的版本号和build信息。2个高字节表示版本号 ：25~32位表示主版本号，17~24位表示次版本号；2个低字节表示build信息。 如0x03000101：表示版本号为3.0，build 号是0101。
+    def get_sdk_build_version(self):
+        return self.call_cpp("NET_DVR_GetSDKBuildVersion")
+
+    # 激活设备
+    def activate_device(self, ip="192.168.1.1", port=8000, pwd="123456"):
+
+        b_ip = bytes(ip, "ascii")
+        b_pwd = bytes(pwd, "ascii")
+
+        input = base.NET_DVR_ACTIVATECFG()
+        input.dwSize = sizeof(input)
+
+        i = 0
+        for o in b_pwd:
+            input.sPassword[i] = o
+            i += 1
+
+        input_ref = byref(input)
+        res = self.call_cpp("NET_DVR_ActivateDevice", b_ip, port, input_ref)
+        if not res:
+            self.print_error("NET_DVR_ActivateDevice 激活设备失败: the error code is ")
+        return res
 
     # msg 描述前缀
     def print_error(self, msg=""):
