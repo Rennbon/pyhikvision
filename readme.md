@@ -1,7 +1,6 @@
 ### 对应海康SDK版本
 - v6.1.4.15_build20200307 
-```
-最新的SDK最近因为各种原因暂且无法跟进，谢谢
+链接:https://pan.baidu.com/s/1xe3wXH7CYIswPgx59y4XWg  密码:oqd5
 ```
 ### 系统差异
 ./hkws/core/type_map.py
