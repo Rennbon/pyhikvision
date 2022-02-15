@@ -91,6 +91,6 @@ ldconfig
 2. 本库配有QQ群（901635269）
 
 <img src="./doc/qq-qr.jpg" width="100px" >
-3. 微信交流群请假 WB343688972 好友或者扫码加好友，验证回复 pyhikvison 按照指引进群
+3. 微信交流群请加 WB343688972 好友或者扫码加好友，验证回复 pyhikvison 按照指引进群
 <img src="./doc/wechat.png" width="100px" >
 
