@@ -88,9 +88,10 @@ ldconfig
 
 ### 维护及联系：
 1. 该库我们将会以社区化的方式维护，欢迎提交pull request
-2. 本库配有QQ群（901635269）
+
+2. 微信群(请加 WB343688972 好友或者扫码加好友，验证回复 pyhikvison 按照指引进群)
+<img src="./doc/wechat.png" width="200px" >
+3. QQ群（901635269）
 
 <img src="./doc/qq-qr.jpg" width="200px" >
-3. 微信交流群请加 WB343688972 好友或者扫码加好友，验证回复 pyhikvison 按照指引进群
-<img src="./doc/wechat.png" width="200px" >
 
