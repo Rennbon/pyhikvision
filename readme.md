@@ -1,4 +1,5 @@
 ## 如果对您起到了帮助，不妨star一下
+https://github.com/Rennbon/pyhikvision
 ## 配套理解sdk二次开发原理
 https://www.jianshu.com/p/c3c4bf3d1ef8
 ### 注意
