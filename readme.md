@@ -1,6 +1,8 @@
 ## 如果对您起到了帮助，不妨star一下
 满200星或者到2022年下半年作者开始维护，最近忙相亲实在没空
 https://github.com/Rennbon/pyhikvision
+
+## 分支 feature/rennbon 有rstp的实现，加了点异步能提升一些性能
 ## 配套理解sdk二次开发原理
 https://www.jianshu.com/p/c3c4bf3d1ef8
 ### 注意
