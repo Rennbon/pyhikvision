@@ -1,4 +1,4 @@
-## 如果对您起到了帮助，不妨star一下[请勿白嫖，Star支持]
+## [一闪一闪亮晶晶，star一下好心情]
 满200星或者到2022年下半年作者开始维护
 https://github.com/Rennbon/pyhikvision
 
