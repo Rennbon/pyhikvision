@@ -10,22 +10,19 @@ class NET_DVR_ALARMER(Structure):
         ("byVersionValid", h_BYTE),
         ("byDeviceNameValid", h_BYTE),
         ("byMacAddrValid", h_BYTE),
-
         ("byLinkPortValid", h_BYTE),
         ("byDeviceIPValid", h_BYTE),
         ("bySocketIPValid", h_BYTE),
         ("lUserID", h_LONG),
         ("sSerialNumber", h_BYTE * 48),
-
         ("dwDeviceVersion", h_DWORD),
         ("sDeviceName", h_CHAR * 32),
         ("byMacAddr", h_CHAR * 6),
         ("wLinkPort", h_WORD),
         ("sDeviceIP", h_CHAR * 128),
-
         ("sSocketIP", h_CHAR * 128),
         ("byIpProtocol", h_BYTE),
-        ("byRes2", h_BYTE * 11)
+        ("byRes2", h_BYTE * 11),
     ]
 
 
@@ -45,19 +42,5 @@ class NET_DVR_SETUPALARM_PARAM(Structure):
         ("byDeployType", h_BYTE),
         ("byRes1", h_BYTE * 3),
         ("byAlarmTypeURL", h_BYTE),
-        ("byCustomCtrl", h_BYTE)
+        ("byCustomCtrl", h_BYTE),
     ]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
