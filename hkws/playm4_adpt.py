@@ -45,7 +45,9 @@ class PlayM4(BaseAdapter):
     def open_stream(self, nport, pFileHeadBuf, nSize, nBufPoolSize):
         if not self.ready():
             return -1
-        res = self.call_cpp("PlayM4_OpenStream", nport, pFileHeadBuf, nSize, nBufPoolSize)
+        res = self.call_cpp(
+            "PlayM4_OpenStream", nport, pFileHeadBuf, nSize, nBufPoolSize
+        )
         if res == 0:
             self.print_error("PlayM4_SetStreamOpenMode 设置流播放模式失败: the error code is ")
         return res

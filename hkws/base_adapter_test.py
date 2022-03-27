@@ -8,4 +8,3 @@ class TestHKAdapter(TestCase):
         a = BaseAdapter()
         a.add_lib("/Users/zhubin/python/pyhikvsion/hkws/lib/linux", ".so")
         print(a.so_list)
-

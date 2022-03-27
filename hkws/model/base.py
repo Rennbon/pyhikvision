@@ -6,10 +6,7 @@ from hkws.core.type_map import *
 
 # 设置sdk加载路劲
 class NET_DVR_LOCAL_SDK_PATH(Structure):
-    _fields_ = [
-        ("sPath", h_BYTE * 256),
-        ("byRes", h_BYTE * 128)
-    ]
+    _fields_ = [("sPath", h_BYTE * 256), ("byRes", h_BYTE * 128)]
 
 
 # 登录参数结构体
@@ -21,10 +18,8 @@ class NET_DVR_USER_LOGIN_INFO(Structure):
         ("sUserName", h_BYTE * 64),  # 登录用户名
         ("sPassword", h_BYTE * 64),  # 登录密码
         # ("fLoginResultCallBack",)  #
-
         ("bUseAsynLogin", h_BOOL),  # 是否异步登录, 0:否 1:是
         ("byProxyType", h_BYTE),  # 代理服务器类型：0- 不使用代理，1- 使用标准代理，2- 使用EHome代理
-
         # 是否使用UTC时间：
         # 0 - 不进行转换，默认；
         # 1 - 输入输出UTC时间，SDK进行与设备时区的转换；
@@ -62,9 +57,14 @@ class NET_DVR_DEVICEINFO_V30(Structure):
         # 设备最大数字通道个数，低8位，搞8位见byHighDChanNum. 可以根据ip通道个数是否调用NET_DVR_GetDVRConfig (
         # 配置命令NET_DVR_GET_IPPARACFG_V40)获得模拟和数字通道的相关参数
         ("byZeroChanNum", h_BYTE),  # 零通道编码个数
-        ("byMainProto", h_BYTE),  # 主码流传输协议类型： 0 - private, 1 - rtsp, 2- 同时支持私有协议和rtsp协议去留（默认采用私有协议取流）
-        ("bySubProto", h_BYTE),  # 字码流传输协议类型： 0 - private , 1 - rtsp , 2 - 同时支持私有协议和rtsp协议取流 （默认采用私有协议取流）
-
+        (
+            "byMainProto",
+            h_BYTE,
+        ),  # 主码流传输协议类型： 0 - private, 1 - rtsp, 2- 同时支持私有协议和rtsp协议去留（默认采用私有协议取流）
+        (
+            "bySubProto",
+            h_BYTE,
+        ),  # 字码流传输协议类型： 0 - private , 1 - rtsp , 2 - 同时支持私有协议和rtsp协议取流 （默认采用私有协议取流）
         # 能力，位与结果为0表示不支持，1
         # 表示支持
         # bySupport & 0x1，表示是否支持智能搜索
@@ -110,7 +110,6 @@ class NET_DVR_DEVICEINFO_V30(Structure):
         ("byStartDChan", h_BYTE),  # 起始数字通道号，0表示无数字通道，比如DVR或IPC
         ("byStartDTalkChan", h_BYTE),  # 起始数字对讲通道号，区别于模拟对讲通道号，0表示无数字对讲通道
         ("byHighDChanNum", h_BYTE),  # 数字通道个数，高8位
-
         # 能力集扩展，按位表示，位与结果：0 - 不支持，1 - 支持
         # bySupport4 & 0x01, 表示是否所有码流类型同时支持RTSP和私有协议
         # bySupport4 & 0x10, 表示是否支持域名方式挂载网络硬盘
@@ -120,25 +119,26 @@ class NET_DVR_DEVICEINFO_V30(Structure):
         # byLanguageType & 0x1，表示是否支持中文
         # byLanguageType & 0x2，表示是否支持英文
         ("byLanguageType", h_BYTE),
-
         ("byVoiceInChanNum", h_BYTE),  # 音频输入通道数
         ("byStartVoiceInChanNo", h_BYTE),  # 音频输入起始通道号，0表示无效
         ("byRes3", h_BYTE * 2),  # 保留，置为0
         ("byMirrorChanNum", h_BYTE),  # 镜像通道个数，录播主机中用于表示导播通道
         ("wStartMirrorChanNo", h_WORD),  # 起始镜像通道号
-        ("byRes2", h_BYTE * 2)]  # 保留，置为0
+        ("byRes2", h_BYTE * 2),
+    ]  # 保留，置为0
 
 
 class NET_DVR_DEVICEINFO_V40(Structure):
     _fields_ = [
         ("struDeviceV30", NET_DVR_DEVICEINFO_V30),  # 设备参数
-        ("bySupportLock", h_BYTE),  # 设备是否支持锁定功能，bySuportLock 为1时，dwSurplusLockTime和byRetryLoginTime有效
+        (
+            "bySupportLock",
+            h_BYTE,
+        ),  # 设备是否支持锁定功能，bySuportLock 为1时，dwSurplusLockTime和byRetryLoginTime有效
         ("byRetryLoginTime", h_BYTE),  # 剩余可尝试登陆的次数，用户名，密码错误时，此参数有效
-
         # 密码安全等级： 0-无效，1-默认密码，2-有效密码，3-风险较高的密码，
         # 当管理员用户的密码为出厂默认密码（12345）或者风险较高的密码时，建议上层客户端提示用户名更改密码
         ("byPasswordLevel", h_BYTE),
-
         ("byProxyType", h_BYTE),  # 代理服务器类型，0-不使用代理，1-使用标准代理，2-使用EHome代理
         # 剩余时间，单位：秒，用户锁定时次参数有效。在锁定期间，用户尝试登陆，不算用户名密码输入对错
         # 设备锁定剩余时间重新恢复到30分钟
@@ -159,7 +159,7 @@ class NET_DVR_DEVICEINFO_V40(Structure):
 class NET_DVR_Login_V40(Structure):
     _fields_ = [
         ("pLoginInfo", NET_DVR_USER_LOGIN_INFO),
-        ("lpDeviceInfo", NET_DVR_DEVICEINFO_V40)
+        ("lpDeviceInfo", NET_DVR_DEVICEINFO_V40),
     ]
 
 
@@ -168,7 +168,7 @@ class NET_DVR_ACTIVATECFG(Structure):
     _fields_ = [
         ("dwSize", h_DWORD),
         ("sPassword", h_BYTE * PASSWD_LEN),
-        ("byRes", h_BYTE * 108)
+        ("byRes", h_BYTE * 108),
     ]
 
 
@@ -186,8 +186,9 @@ class NET_DVR_SDKSTATE(Structure):
         ("dwTotalUpgradeNum", h_DWORD),  # 当前升级的路数
         ("dwTotalVoiceComNum", h_DWORD),  # 当前语音转发的路数
         ("dwTotalBroadCastNum", h_DWORD),  # 当前语音广播的路数
-        (" dwRes", h_DWORD*10),  # 保留，置为0
+        (" dwRes", h_DWORD * 10),  # 保留，置为0
     ]
+
 
 # SDK功能信息结构体
 class NET_DVR_SDKABL(Structure):
@@ -203,5 +204,5 @@ class NET_DVR_SDKABL(Structure):
         ("dwMaxUpgradeNum", h_DWORD),  # 最大升级的路数
         ("dwMaxVoiceComNum", h_DWORD),  # 最大语音转发的路数
         ("dwMaxBroadCastNum", h_DWORD),  # 最大语音广播的路数
-        (" dwRes", h_DWORD*10),  # 保留，置为0
+        (" dwRes", h_DWORD * 10),  # 保留，置为0
     ]

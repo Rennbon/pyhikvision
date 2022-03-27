@@ -133,7 +133,9 @@ class BaseAdapter:
     def setup_alarm_chan_v31(self, cbFunc, user_id):
         result = self.call_cpp("NET_DVR_SetDVRMessageCallBack_V31", cbFunc, user_id)
         if result == -1:
-            self.print_error("NET_DVR_SetDVRMessageCallBack_V31 初始化SDK失败: the error code is ")
+            self.print_error(
+                "NET_DVR_SetDVRMessageCallBack_V31 初始化SDK失败: the error code is "
+            )
         return result
 
     # 设置报警布防
@@ -177,6 +179,7 @@ class BaseAdapter:
         if not res:
             self.print_error("NET_DVR_GetSDKAbility 获取当前SDK功能信息失败: the error code is ")
         return res, op
+
     # 激活设备
     def activate_device(self, ip="192.168.1.1", port=8000, pwd="123456"):
 
