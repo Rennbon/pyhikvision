@@ -16,6 +16,7 @@ https://www.jianshu.com/p/c3c4bf3d1ef8
 - 支持Centos及Windows系统，不支持ubuntu（官方没有针对ubuntu做优化）
 
 ### 对应海康SDK版本
+链接:https://pan.baidu.com/s/1xe3wXH7CYIswPgx59y4XWg 提取码:oqd5
 - 设备网络SDK V6.1.6.45_build20210302
 - 播放库SDK V7.3.9.50_build20210106
 ```
