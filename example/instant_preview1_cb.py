@@ -14,11 +14,11 @@ NET_DVR_PRIVATE_DATA = 112
 # dwBufSize：缓冲区大小
 # dwUser： 用户数据
 @callbacks.real_data_callback
-def f_real_data_call_back(lRealHandle,
-                          dwDataType,
-                          pBuffer,
-                          dwBufSize,
-                          dwUser):
+def f_real_data_call_back1(lRealHandle,
+                           dwDataType,
+                           pBuffer,
+                           dwBufSize,
+                           dwUser):
     print("dwDataType:{},pBuffer:{},dwBufSize:{}".format(dwDataType, pBuffer, dwBufSize))
     if dwDataType is NET_DVR_SYSHEAD:  # 系统头数据
         print("头数据")
