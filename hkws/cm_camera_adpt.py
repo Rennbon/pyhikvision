@@ -1,20 +1,20 @@
-from hkws.model import camera, callbacks
 from hkws.base_adapter import BaseAdapter
 from hkws.core.type_map import *
+from hkws.model import camera
 
 
 # 摄像器适配器
 class CameraAdapter(BaseAdapter):
     # 启动预览
-    def start_preview(self, cbFunc, userId=0):
+    def start_preview(self, hPlayWnd, cbFunc, userId=0):
         req = camera.NET_DVR_PREVIEWINFO()
-        req.hPlayWnd = None
+        req.hPlayWnd = hPlayWnd
         req.lChannel = 1  # 预览通道号
         req.dwStreamType = 0  # 码流类型：0-主码流，1-子码流，2-三码流，3-虚拟码流，以此类推
         req.dwLinkMode = (
             0  # 连接方式：0-TCP方式，1-UDP方式，2-多播方式，3-RTP方式，4-RTP/RTSP，5-RTP/HTTP,6-HRUDP（可靠传输）
         )
-        req.bBlocked = 1  # 0-非阻塞 1-阻塞
+        req.bBlocked = 0  # 0-非阻塞 1-阻塞
         struPlayInfo = byref(req)
         # 这个回调函数不适合长时间占用
         # fRealDataCallBack_V30 = preview.REALDATACALLBACK
@@ -125,9 +125,6 @@ class CameraAdapter(BaseAdapter):
         lpInBuffer.dwUploadInterval = 800
         lpInBuffer.dwFaceFilteringTime = 5
         lpInBuffer_ref = byref(lpInBuffer)
-        print(lpInBuffer)
-        print("size", size)
-        print(lpInBuffer_ref)
 
         set_dvr_result = self.call_cpp(
             "NET_DVR_SetDVRConfig", user_id, 5002, 1, lpInBuffer_ref, size

@@ -1,6 +1,7 @@
-import fcntl
+import fcntl  # windows上不可用
 import os
 import time
+
 from hkws.core.type_map import *
 from hkws.model import alarm, camera
 
