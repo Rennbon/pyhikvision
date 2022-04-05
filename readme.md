@@ -119,5 +119,5 @@ ldconfig
    <img src="./doc/wechat.png" width="200px" >
 3. QQ群（901635269）
 
-<img src="./doc/qq-qr.jpg" width="200px" >
+   <img src="./doc/qq-qr.jpg" width="200px" >
 
