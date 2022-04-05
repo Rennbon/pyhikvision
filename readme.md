@@ -1,11 +1,13 @@
 ## [一闪一闪亮晶晶，star一下好心情]
 
 github地址：https://github.com/Rennbon/pyhikvision
-
+## 新变动
+- example 新增2种基于windows的实时预览方式以及一些代码案例
+- 包管理使用conda
+- TODO: linux案例
 ## 分支 feature/rennbon 有rstp的实现，加了点异步能提升一些性能
 
 ## 配套理解sdk二次开发原理
-
 https://www.jianshu.com/p/c3c4bf3d1ef8
 
 ### 注意
@@ -14,9 +16,8 @@ https://www.jianshu.com/p/c3c4bf3d1ef8
 - 支持Centos及Windows系统，不支持ubuntu（官方没有针对ubuntu做优化）
 
 ### 对应海康SDK版本
-
-- v6.1.4.15_build20200307 链接:https://pan.baidu.com/s/1xe3wXH7CYIswPgx59y4XWg  密码:oqd5
-
+- 设备网络SDK V6.1.6.45_build20210302
+- 播放库SDK V7.3.9.50_build20210106
 ```
 # 系统差异
 ./hkws/core/type_map.py
