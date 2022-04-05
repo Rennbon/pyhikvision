@@ -16,7 +16,7 @@ https://www.jianshu.com/p/c3c4bf3d1ef8
 - 支持Centos及Windows系统，不支持ubuntu（官方没有针对ubuntu做优化）
 
 ### 推荐
-mac开发windows虚拟机推荐：
+mac开发虚拟机推荐：
 虚拟工具：https://www.parallels.cn/pd/general/
 可以直接安装linux和windows，且可以独立到应用级别，非常适合海康威视开发，比云服务器或者docker好用
 
