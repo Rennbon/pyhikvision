@@ -1,5 +1,5 @@
 ## [一闪一闪亮晶晶，star一下好心情]
-
+这个仓库是因为疫情防控而诞生的，作者纯业余时间维护，希望能在新冠（COVID-19）疫情期间给防疫带来一些便利，如果这个仓库能帮助到大家，也希望大家能提一些PR。
 github地址：https://github.com/Rennbon/pyhikvision
 ## 新变动
 - example 新增2种基于windows的实时预览方式以及一些代码案例
