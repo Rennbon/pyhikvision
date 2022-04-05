@@ -23,6 +23,7 @@ downloads/
 eggs/
 .eggs/
 lib/
+hkws/lib/
 lib64/
 parts/
 sdist/

@@ -1,6 +1,4 @@
-import logging
 import os
-import time
 import sys
 
 curPath = os.path.abspath(os.path.dirname(__file__))

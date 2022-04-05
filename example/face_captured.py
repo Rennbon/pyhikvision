@@ -1,7 +1,7 @@
 import logging
 import os
-import time
 import sys
+import time
 
 curPath = os.path.abspath(os.path.dirname(__file__))
 rootPath = os.path.split(curPath)[0]
@@ -15,6 +15,7 @@ from example import face_captured_cb
 cnf = config.Config()
 path = os.path.join('../local_config.ini')
 cnf.InitConfig(path)
+os.chdir(cnf.SDKPath)
 
 # 初始化SDK适配器
 adapter = cm_camera_adpt.CameraAdapter()

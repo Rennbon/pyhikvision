@@ -1,3 +1,4 @@
+# 使用callback处理流，可以将数据转存等操作
 import logging
 import os
 import sys
@@ -6,14 +7,13 @@ import time
 import win32con
 import win32gui
 
-from example import instant_preview_cb
-
 curPath = os.path.abspath(os.path.dirname(__file__))
 rootPath = os.path.split(curPath)[0]
 PathProject = os.path.split(rootPath)[0]
 sys.path.append(rootPath)
 sys.path.append(PathProject)
 
+from example import instant_preview_cb2
 from hkws import cm_camera_adpt, config
 
 # 初始化配置文件
@@ -56,11 +56,11 @@ win32gui.ShowWindow(hwnd, win32con.SW_SHOW)
 # hwnd = ctypes.windll.kernel32.GetConsoleWindow()
 # ctypes.windll.user32.ShowWindow(hwnd, 1)
 print("start preview 成功", lRealPlayHandle)
-instant_preview_cb.set_playM4_adpt(adapter.get_lib(), hwnd)
-callback = adapter.callback_real_data(lRealPlayHandle, instant_preview_cb.f_real_data_call_back, userId)
+instant_preview_cb2.set_playM4_adpt(adapter.get_lib(), hwnd)
+callback = adapter.callback_real_data(lRealPlayHandle, instant_preview_cb2.f_real_data_call_back, userId)
 print("callback", callback)
 
-time.sleep(10)
+time.sleep(60)
 adapter.stop_preview(lRealPlayHandle)
 adapter.logout(userId)
 adapter.sdk_clean()

@@ -1,14 +1,21 @@
-from ctypes import *
-import os
 import logging
+import os
+from ctypes import *
+
 from hkws.config import Config
-from hkws.model import base, alarm, callbacks
+from hkws.model import base, alarm
 
 
 # 海康威视基础类，AI摄像机，通用摄像机，门禁产品，出入口产品通用
 class BaseAdapter:
     # 动态sdk文件 .so .dll
     so_list = []
+
+    def set_lib(self, so_list: []):
+        self.so_list = so_list
+
+    def get_lib(self):
+        return self.so_list
 
     # 常规启动，初始化SDK到用户注册设备
     def common_start(self, cnf: Config):
@@ -47,8 +54,8 @@ class BaseAdapter:
                 except:
                     continue
             except:
+                # logging.info("库文件载入失败：" + so_lib)
                 continue
-            # logging.info("库文件载入失败：" + so_lib )
 
         logging.error("没有找到接口！")
         return False
@@ -60,7 +67,7 @@ class BaseAdapter:
             logging.info("SDK初始化成功")
             return True
         else:
-            self.print_error("NET_DVR_GetLastError 初始化SDK失败: the error code is")
+            self.print_error("NET_DVR_GetLastError 初始化SDK失败: the error code is ")
             return False
 
     # 设置sdk初始化参数
