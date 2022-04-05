@@ -3,6 +3,9 @@
 github地址：https://github.com/Rennbon/pyhikvision
 ## 新变动
 - example 新增2种基于windows的实时预览方式以及一些代码案例
+   + instant_preview1: windows 直接传入窗口句柄，时效性最高，但是数据无法操作
+   + instant_preview2: windows 使用callback处理流，自定义操作视频，音频等参考(Linux也是如此)
+   + instant_preview_empty: 空示例，Linux,Windows都可以跑，验证代码是否正常，可以做定制化试验
 - 包管理使用conda
 - TODO: linux案例
 ## 分支 feature/rennbon 有rstp的实现，加了点异步能提升一些性能
