@@ -9,6 +9,7 @@ github地址：https://github.com/Rennbon/pyhikvision
 - 引入播放库SDK
 - 包管理使用conda
 - TODO: linux案例
+- TODO: openCV实时预览
 ## 分支 feature/rennbon 有rstp的实现，加了点异步能提升一些性能
 
 ## 配套理解sdk二次开发原理
