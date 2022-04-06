@@ -37,18 +37,6 @@ mac开发虚拟机推荐：
 h_DWORD = c_ulong  # 64bit:c_ulong    32bit:c_uint32  
 ```
 
-### 理念
-
-- 如果帮助到了您，希望能够获得您的star
-- 海康威视摄像头等硬件官方提供有SDK动态库，另外Python社区的AI库是最强的，所以Python对应的开发环境也是有一定场景的，尤其是基于图像功能的二次开发。
-- 海康威视SDK偏函数式编程，且直接基于动态SDK二次开发较为复杂，实现一个接口的调用要查阅很多资料，还要对比官方的其他语言的Demo库，很不方便。
-
-所以这里打算维护迭代海康威视动态SDK基于Python3的开源库以减轻二次开发的难度。
-
-### Python 版本
-
-python 3.6
-
 ### local_config.ini配置（主目录下config.ini修改为local_config.ini即可）
 
 ```
@@ -67,7 +55,7 @@ Plat: 枚举值 0:linux    1:windows
 
 ```
 cd example
-python3 xxx.py
+python xxx.py
 ```
 
 ### Linux SDK加载107问题解决方案
