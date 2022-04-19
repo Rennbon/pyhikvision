@@ -13,8 +13,8 @@ github地址：https://github.com/Rennbon/pyhikvision
 ## 分支 feature/rennbon 有rstp的实现，加了点异步能提升一些性能
 
 ## 配套理解sdk二次开发原理
-https://www.jianshu.com/p/c3c4bf3d1ef8
-
+- pyhivision使用指南https://www.jianshu.com/p/c3c4bf3d1ef8
+- 海康威视官方音视频技术方案对比 https://open.hikvision.com/docs/docId?productId=612781c8ec4acb28e0e1c0c3&version=%2Fff026cfc47a14e79a6c9acf21d9d8769&curNodeId=2e231666a7854dc4a2dc29b9ed06782a
 ### 注意
 
 - 海康有些设备的SDK需要跟海康的技术要，官网的版本可能是对不上的，已经有部分开发者遇到这个问题了，请大家注意下，百思不得其解，找官方技术人员了解一下SDK是否对应。
