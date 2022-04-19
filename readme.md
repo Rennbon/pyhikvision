@@ -19,7 +19,7 @@ https://www.jianshu.com/p/c3c4bf3d1ef8
 
 - 海康有些设备的SDK需要跟海康的技术要，官网的版本可能是对不上的，已经有部分开发者遇到这个问题了，请大家注意下，百思不得其解，找官方技术人员了解一下SDK是否对应。
 - 支持Centos及Windows系统，不支持ubuntu（官方没有针对ubuntu做优化）
-
+- error code https://open.hikvision.com/hardware/definitions/NET_DVR_GetLastError.html
 ### 推荐
 mac开发虚拟机推荐：
 虚拟工具：https://www.parallels.cn/pd/general/
