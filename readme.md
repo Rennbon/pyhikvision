@@ -29,6 +29,7 @@ mac开发虚拟机推荐：
 链接:https://pan.baidu.com/s/1xe3wXH7CYIswPgx59y4XWg 提取码:oqd5
 - 设备网络SDK V6.1.6.45_build20210302
 - 播放库SDK V7.3.9.50_build20210106
+- 密码重置助手 https://www.hikvision.com/cn/password-reset/#download-agreement
 ```
 # 系统差异
 ./hkws/core/type_map.py
