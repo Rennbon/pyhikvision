@@ -1,6 +1,8 @@
 ## pyhikvision [一闪一闪亮晶晶，star一下好心情]
 ![GitHub](https://img.shields.io/github/license/Rennbon/pyhikvision)
 ![release](https://img.shields.io/github/v/release/Rennbon/pyhikvision)
+![python](https://img.shields.io/badge/python-3.6.13-brightgreen)
+![platform](https://img.shields.io/badge/platform-Linux64|Linux32|win64|win32-lightgrey)
 
 这个仓库是因为疫情防控而诞生的，作者纯业余时间维护，希望能在新冠（COVID-19）疫情期间给防疫带来一些便利，如果这个仓库能帮助到大家，也希望大家能提一些PR。
 github地址：https://github.com/Rennbon/pyhikvision
