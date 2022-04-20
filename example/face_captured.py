@@ -15,7 +15,8 @@ from example import face_captured_cb
 cnf = config.Config()
 path = os.path.join('../local_config.ini')
 cnf.InitConfig(path)
-os.chdir(cnf.SDKPath)
+if cnf.Plat == "1":
+    os.chdir(cnf.SDKPath)
 
 # 初始化SDK适配器
 adapter = cm_camera_adpt.CameraAdapter()

@@ -13,6 +13,8 @@ from hkws import base_adapter, config
 cnf = config.Config()
 path = os.path.join('../local_config.ini')
 cnf.InitConfig(path)
+if cnf.Plat == "1":
+    os.chdir(cnf.SDKPath)
 
 # 初始化SDK适配器
 adapter = base_adapter.BaseAdapter()

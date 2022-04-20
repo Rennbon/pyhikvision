@@ -18,7 +18,8 @@ from hkws.core.type_map import h_DWORD
 cnf = config.Config()
 path = os.path.join('../local_config.ini')
 cnf.InitConfig(path)
-os.chdir(cnf.SDKPath)
+if cnf.Plat == "1":
+    os.chdir(cnf.SDKPath)
 
 # 初始化SDK适配器
 adapter = playm4_adpt.PlayM4()
