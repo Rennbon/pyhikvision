@@ -4,8 +4,6 @@
 ![python](https://img.shields.io/badge/python-3.10.4-brightgreen)
 ![platform](https://img.shields.io/badge/platform-Linux64|Linux32|win64|win32-lightgrey)
 
-官方最新sdk已经有Python示例了,但是应该没有这个库好用
-
 ## 新变动
 - 视频预览使用tk代替win32gui，解决未响应及跨平台问题
 - 移除PC系统类型配置
