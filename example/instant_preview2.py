@@ -2,10 +2,7 @@
 import logging
 import os
 import sys
-import time
-
-import win32con
-import win32gui
+import tkinter
 
 curPath = os.path.abspath(os.path.dirname(__file__))
 rootPath = os.path.split(curPath)[0]
@@ -39,30 +36,29 @@ if lRealPlayHandle < 0:
     adapter.sdk_clean()
     os._exit(2)
 
-# hwnd = win32console.GetConsoleWindow()
-# win32gui.SetWindowPos(hwnd, win32con.HWND_TOP, 0, 0, 600, 400, win32con.SWP_SHOWWINDOW)
-# win32gui.ShowWindow(hwnd, win32con.SW_SHOW)
-# win32gui.UpdateWindow(hwnd)
+win = tkinter.Tk()
+win.title("hikvision")
+sw = win.winfo_screenwidth()
+# 得到屏幕宽度
+sh = win.winfo_screenheight()
+ww = 600
+wh = 400
+x = (sw - ww) / 2
+y = (sh - wh) / 2
+win.geometry("%dx%d+%d+%d" % (ww, wh, x, y))
 
-wc = win32gui.WNDCLASS()
-wc.lpszClassName = 'instant preview'
-wc.style = win32con.CS_GLOBALCLASS | win32con.CS_VREDRAW | win32con.CS_HREDRAW
-wc.hbrBackground = win32con.COLOR_WINDOW + 1
-class_atom = win32gui.RegisterClass(wc)
-hwnd = win32gui.CreateWindowEx(0, class_atom, 'instant preview',
-                               win32con.WS_CAPTION | win32con.WS_VISIBLE | win32con.WS_THICKFRAME | win32con.WS_SYSMENU,
-                               100, 100, 600, 400, 0, 0, 0, None)
+# 创建一个Canvas，设置其背景色为白色
+cv = tkinter.Canvas(win, bg='white', width=ww, height=wh)
+cv.pack()
+# 第6步，主窗口循环显示
+hwnd = cv.winfo_id()
 
-win32gui.ShowWindow(hwnd, win32con.SW_SHOW)
-# hwnd = ctypes.windll.kernel32.GetConsoleWindow()
-# ctypes.windll.user32.ShowWindow(hwnd, 1)
 print("start preview 成功", lRealPlayHandle)
 instant_preview_cb2.set_playM4_adpt(adapter.get_lib(), hwnd)
 callback = adapter.callback_real_data(lRealPlayHandle, instant_preview_cb2.f_real_data_call_back, userId)
 print("callback", callback)
-
-time.sleep(60)
+win.mainloop()
 adapter.stop_preview(lRealPlayHandle)
 adapter.logout(userId)
 adapter.sdk_clean()
-win32gui.DestroyWindow(hwnd)
+
