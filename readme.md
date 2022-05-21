@@ -3,6 +3,7 @@
 ![release](https://img.shields.io/github/v/release/Rennbon/pyhikvision)
 ![python](https://img.shields.io/badge/python-3.10.4-brightgreen)
 ![platform](https://img.shields.io/badge/platform-Linux64|Linux32|win64|win32-lightgrey)
+
 官方最新sdk已经有Python示例了
 ## 新变动
 - preview使用tk代替win32gui
