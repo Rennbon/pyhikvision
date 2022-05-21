@@ -44,7 +44,7 @@ win.geometry("%dx%d+%d+%d" % (ww, wh, x, y))
 # 创建一个Canvas，设置其背景色为白色
 cv = tkinter.Canvas(win, bg='white', width=ww, height=wh)
 cv.pack()
-# 第6步，主窗口循环显示
+
 hwnd = cv.winfo_id()
 lRealPlayHandle = adapter.start_preview(hwnd, None, userId)
 
@@ -56,7 +56,7 @@ if lRealPlayHandle < 0:
 print("start preview 成功", lRealPlayHandle)
 callback = adapter.callback_real_data(lRealPlayHandle, instant_preview1_cb.f_real_data_call_back, userId)
 print("callback", callback)
-
+# 第6步，主窗口循环显示
 win.mainloop()
 adapter.stop_preview(lRealPlayHandle)
 adapter.logout(userId)
