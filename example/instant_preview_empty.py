@@ -4,6 +4,8 @@ import os
 import sys
 import time
 
+from hkws.core import env
+
 curPath = os.path.abspath(os.path.dirname(__file__))
 rootPath = os.path.split(curPath)[0]
 PathProject = os.path.split(rootPath)[0]
@@ -17,7 +19,7 @@ from example import instant_preview_empty_cb
 cnf = config.Config()
 path = os.path.join('../local_config.ini')
 cnf.InitConfig(path)
-if cnf.Plat == "1":
+if env.isWindows():
     os.chdir(cnf.SDKPath)
 
 # 初始化SDK适配器

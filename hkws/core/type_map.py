@@ -11,7 +11,7 @@ h_LONG = c_long
 h_FLOAT = c_float
 h_DWORD = c_ulong  # 64bit:c_ulong    32bit:c_uint32
 
-if sys.maxsize > 2**32 == False:
+if not sys.maxsize > 2 ** 32:
     h_DWORD = c_uint32
 
 h_VOID_P = c_void_p

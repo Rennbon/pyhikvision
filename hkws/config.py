@@ -1,5 +1,6 @@
 import configparser
-import platform
+
+from hkws.core import env
 
 
 class Config:
@@ -8,7 +9,6 @@ class Config:
     Password = "12345"
     Port = 8000
     IP = "127.0.0.1"
-    Plat = "0"  # 0-Linux，1-windows
     Suffix = ".so"
 
     def InitConfig(self, path):
@@ -19,7 +19,6 @@ class Config:
         self.Password = cnf.get("DEFAULT", "Password")
         self.Port = cnf.getint("DEFAULT", "Port")
         self.IP = cnf.get("DEFAULT", "IP")
-        if platform.system() == "Windows":
-            self.Plat = "1"
+        if env.isWindows():
             self.Suffix = ".dll"
         return

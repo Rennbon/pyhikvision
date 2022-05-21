@@ -2,6 +2,7 @@ import logging
 import os
 import sys
 
+from hkws.core import env
 
 curPath = os.path.abspath(os.path.dirname(__file__))
 rootPath = os.path.split(curPath)[0]
@@ -16,7 +17,7 @@ from hkws.core.type_map import h_DWORD
 cnf = config.Config()
 path = os.path.join('../local_config.ini')
 cnf.InitConfig(path)
-if cnf.Plat == "1":
+if env.isWindows():
     os.chdir(cnf.SDKPath)
 
 # 初始化SDK适配器
