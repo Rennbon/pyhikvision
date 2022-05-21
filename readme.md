@@ -4,33 +4,36 @@
 ![python](https://img.shields.io/badge/python-3.10.4-brightgreen)
 ![platform](https://img.shields.io/badge/platform-Linux64|Linux32|win64|win32-lightgrey)
 
-官方最新sdk已经有Python示例了
 ## 新变动
-- preview使用tk代替win32gui
-- 移除系统类型配置
+- 视频预览使用tk代替win32gui，解决未响应及跨平台问题
+- 移除PC系统类型配置
+- 32/64位系统自动区分特定变量类型
 ## 分支 feature/rennbon 有rstp的实现，加了点异步能提升一些性能
 
 ## 配套理解sdk二次开发原理
 - pyhivision使用指南https://www.jianshu.com/p/c3c4bf3d1ef8
 - 海康威视官方音视频技术方案对比 https://open.hikvision.com/docs/docId?productId=612781c8ec4acb28e0e1c0c3&version=%2Fff026cfc47a14e79a6c9acf21d9d8769&curNodeId=2e231666a7854dc4a2dc29b9ed06782a
-### 注意
 
+### 提示
 - 海康有些设备的SDK需要跟海康的技术要，官网的版本可能是对不上的，已经有部分开发者遇到这个问题了，请大家注意下，百思不得其解，找官方技术人员了解一下SDK是否对应。
-- 支持Centos及Windows系统，不支持ubuntu（官方没有针对ubuntu做优化）
-- error code https://open.hikvision.com/hardware/definitions/NET_DVR_GetLastError.html
-### 推荐
-mac开发虚拟机推荐：
-虚拟工具：https://www.parallels.cn/pd/general/
-可以直接安装linux和windows，且可以独立到应用级别，非常适合海康威视开发，比云服务器或者docker好用
+- 错误码列表 https://open.hikvision.com/hardware/definitions/NET_DVR_GetLastError.html
 
-### 对应海康SDK版本
-链接:https://pan.baidu.com/s/1xe3wXH7CYIswPgx59y4XWg 提取码:oqd5
+### macOS开发推荐
+虚拟工具：https://www.parallels.cn/pd/general/
+可以直接安装Linux和windows，且可以独立到应用级别，非常适合海康威视开发，比云服务器或者docker好用
+
+### 海康威视资源下载
+官方资源：https://open.hikvision.com/download/5cda567cf47ae80dd41a54b3?type=10
+网盘：https://pan.baidu.com/s/1xe3wXH7CYIswPgx59y4XWg 提取码:oqd5
+
+pyhikvision最新对应SDK版本如下：
 - 设备网络SDK V6.1.9.4_build20220412
 - 播放库SDK V7.3.9.50_build20210106
 - 密码重置助手 https://www.hikvision.com/cn/password-reset/#download-agreement
 
+## 快速启动
 ### local_config.ini配置（主目录下config.ini修改为local_config.ini即可）
-
+注意windows目录分隔符
 ```
 [DEFAULT]
 SDKPath: .dll或.so的根目录，会遍历加载，填根SDK目录即可
@@ -42,16 +45,13 @@ IP: 摄像头ip
 ```
 
 ### example启动方式
-
-- 将根目录下config.ini 改为local_config.ini
-
 ```
 cd example
 python xxx.py
 ```
 
+## SDK配置相关
 ### Linux SDK加载107问题解决方案
-
 1. 将SDK动态库路径加入到LD_LIBRARY_PATH环境变量
 
 ```
@@ -92,11 +92,11 @@ ldconfig
 /opt/hkws/lib/HCNetSDKCom/
 ```
 
-### 维护及联系：
+## 维护及联系：
 
 1. 该库我们将会以社区化的方式维护，欢迎提交pull request
 
-2. 微信群(请加 WB343688972 好友或者扫码加好友，验证回复 pyhikvison 按照指引进群)'
+2. 微信群(请加 WB343688972 好友或者扫码加好友，验证回复 pyhikvison 按照指引进群)
 
    <img src="./doc/wechat.png" width="200px" >
 3. QQ群（901635269）
