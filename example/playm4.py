@@ -2,8 +2,6 @@ import logging
 import os
 import sys
 
-import win32api
-import win32con
 
 curPath = os.path.abspath(os.path.dirname(__file__))
 rootPath = os.path.split(curPath)[0]
@@ -36,9 +34,5 @@ res = adapter.set_stream_open_mode(h_DWORD(0))
 if res == 0:
     os._exit(0)
 
-# hld = win32gui.FindWindow(None, "VSPlayer")
-# win32gui.ShowWindow(hld, win32con.SW_SHOW)
-# win32gui.ShowWindow(hld, win32con.SW_HIDE)
 
 
-win32api.MessageBox(None, "hahaha", "haha", win32con.MB_OK)

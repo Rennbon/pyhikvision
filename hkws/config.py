@@ -1,4 +1,5 @@
 import configparser
+import platform
 
 
 class Config:
@@ -18,7 +19,7 @@ class Config:
         self.Password = cnf.get("DEFAULT", "Password")
         self.Port = cnf.getint("DEFAULT", "Port")
         self.IP = cnf.get("DEFAULT", "IP")
-        self.Plat = cnf.get("DEFAULT", "Plat")
-        if self.Plat == "1":
+        if platform.system() == "Windows":
+            self.Plat = "1"
             self.Suffix = ".dll"
         return

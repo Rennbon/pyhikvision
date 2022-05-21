@@ -1,19 +1,12 @@
 ## pyhikvision [一闪一闪亮晶晶，star一下好心情]
 ![GitHub](https://img.shields.io/github/license/Rennbon/pyhikvision)
 ![release](https://img.shields.io/github/v/release/Rennbon/pyhikvision)
-![python](https://img.shields.io/badge/python-3.6.13-brightgreen)
+![python](https://img.shields.io/badge/python-3.10.4-brightgreen)
 ![platform](https://img.shields.io/badge/platform-Linux64|Linux32|win64|win32-lightgrey)
-
 官方最新sdk已经有Python示例了
 ## 新变动
-- example 新增2种基于windows的实时预览方式以及一些代码案例
-   + instant_preview1: windows 直接传入窗口句柄，时效性最高，但是数据无法操作
-   + instant_preview2: windows 使用callback处理流，自定义操作视频，音频等参考(Linux也是如此)
-   + instant_preview_empty: 空示例，Linux,Windows都可以跑，验证代码是否正常，可以做定制化试验
-- 引入播放库SDK
-- 包管理使用conda
-- TODO: linux案例
-- TODO: openCV实时预览
+- preview使用tk代替win32gui
+- 移除系统类型配置
 ## 分支 feature/rennbon 有rstp的实现，加了点异步能提升一些性能
 
 ## 配套理解sdk二次开发原理
@@ -31,16 +24,9 @@ mac开发虚拟机推荐：
 
 ### 对应海康SDK版本
 链接:https://pan.baidu.com/s/1xe3wXH7CYIswPgx59y4XWg 提取码:oqd5
-- 设备网络SDK V6.1.6.45_build20210302
+- 设备网络SDK V6.1.9.4_build20220412
 - 播放库SDK V7.3.9.50_build20210106
 - 密码重置助手 https://www.hikvision.com/cn/password-reset/#download-agreement
-```
-# 系统差异
-./hkws/core/type_map.py
-
-# line 11  DWORD会根据操作系统的不同，被定义成了不同的长度,如果是32位的请自行修改下
-h_DWORD = c_ulong  # 64bit:c_ulong    32bit:c_uint32  
-```
 
 ### local_config.ini配置（主目录下config.ini修改为local_config.ini即可）
 
@@ -51,7 +37,7 @@ User: 摄像头访问用户名，需要在海康威视图形界面上自己配�
 Password: 摄像头访问密码，需要在海康威视图形界面上自己配置
 Port: 摄像头端口
 IP: 摄像头ip
-Plat: 枚举值 0:linux    1:windows
+
 ```
 
 ### example启动方式
