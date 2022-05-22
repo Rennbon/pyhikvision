@@ -4,7 +4,7 @@
 ![python](https://img.shields.io/badge/python-3.10.4-brightgreen)
 ![platform](https://img.shields.io/badge/platform-Linux64|Linux32|win64|win32-lightgrey)
 
-- 支持Linux,Windows下32位6及4位系统
+- 支持Linux,Windows下32位及64位系统
 - 针对官方接口文档中的基础类型做了Python映射，可以简化接口出入参编写复杂度
 - example中实现了海康威视设备用户登录，视频实时预览等基础功能，可供参考
 
