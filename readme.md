@@ -44,8 +44,15 @@ IP: 摄像头ip
 
 ```
 
-### example启动方式
+### 初始化conda环境
+package.yml中prefix为conda env目录下子环境设置，需要结合自身系统环境修改
 ```
+conda env create  -f .\package.yml
+```
+
+### example启动方式
+````
+
 cd example
 python xxx.py
 ```
