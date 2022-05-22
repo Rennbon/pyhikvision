@@ -45,9 +45,9 @@ IP: 摄像头ip
 ```
 
 ### 初始化conda环境
-package.yml中prefix为conda env目录下子环境设置，需要结合自身系统环境修改
+packages.yml中prefix为conda env目录下子环境设置，需要结合自身系统环境修改
 ```
-conda env create  -f .\package.yml
+conda env create  -f .\packages.yml
 ```
 
 ### example启动方式
