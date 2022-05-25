@@ -110,10 +110,10 @@ ldconfig
 
 欢饮star并加入讨论群，记得标注 "hksdk"
 
-2. 微信群(请加 WB343688972 好友或者扫码加好友, 按照指引进群)
+1. 微信群(请加 WB343688972 好友或者扫码加好友, 按照指引进群)
 
    <img src="./doc/wechat.png" width="200px" >
-3. QQ群（901635269）
+2. QQ群（901635269）
 
    <img src="./doc/qq-qr.jpg" width="200px" >
 
