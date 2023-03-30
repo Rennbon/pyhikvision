@@ -19,6 +19,7 @@
 ## 配套理解sdk二次开发原理
 - pyhivision使用指南https://www.jianshu.com/p/c3c4bf3d1ef8
 - 海康威视官方音视频技术方案对比 https://open.hikvision.com/docs/docId?productId=612781c8ec4acb28e0e1c0c3&version=%2Fff026cfc47a14e79a6c9acf21d9d8769&curNodeId=2e231666a7854dc4a2dc29b9ed06782a
+- 官方硬件产品文档 https://open.hikvision.com/docs/docId?productId=5cda567cf47ae80dd41a54b3&version=%2F16e18c75bd644f1dbf9e8301d6fc9b73&tagPath=%E9%80%9A%E7%94%A8%E8%A7%86%E9%A2%91-%E5%AE%9E%E6%97%B6%E9%A2%84%E8%A7%88
 
 ### 提示
 - 海康有些设备的SDK需要跟海康的技术要，官网的版本可能是对不上的，已经有部分开发者遇到这个问题了，请大家注意下，百思不得其解，找官方技术人员了解一下SDK是否对应。
