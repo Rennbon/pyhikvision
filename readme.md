@@ -50,8 +50,8 @@ Port: 摄像头端口
 IP: 摄像头ip
 
 ```
-
-### 初始化conda环境
+### pycharm venv（推荐，直接启动即可）
+### 初始化conda环境 （venv还没出来前的方案，不推荐）
 packages.yml中prefix为conda env目录下子环境设置，需要结合自身系统环境修改
 
 ```
