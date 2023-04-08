@@ -38,6 +38,15 @@ pyhikvision最新对应SDK版本如下：
 - 播放库SDK V7.3.9.50_build20210106
 - 密码重置助手 https://www.hikvision.com/cn/password-reset/#download-agreement
 
+## 开发环境初始化
+### 1. venv（推荐，PyCharm直接启动即可）
+### 2. conda环境 （需要安装conda，下载请跳转至https://anaconda.org/anaconda/conda）
+packages.yml中prefix为conda env目录下子环境设置，需要结合自身系统环境修改
+
+```
+conda env create  -f .\packages.yml
+```
+
 ## 快速启动
 ### local_config.ini配置（主目录下config.ini修改为local_config.ini即可）
 注意windows目录分隔符
@@ -50,14 +59,6 @@ Port: 摄像头端口
 IP: 摄像头ip
 
 ```
-### pycharm venv（推荐，直接启动即可）
-### 初始化conda环境 （venv还没出来前的方案，不推荐）
-packages.yml中prefix为conda env目录下子环境设置，需要结合自身系统环境修改
-
-```
-conda env create  -f .\packages.yml
-```
-
 ### example启动方式
 
 ```
