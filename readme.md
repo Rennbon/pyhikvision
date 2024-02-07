@@ -17,7 +17,6 @@
 ## 分支 feature/rennbon 有rstp的实现，加了点异步能提升一些性能
 
 ## 配套理解sdk二次开发原理
-- pyhivision使用指南https://www.jianshu.com/p/c3c4bf3d1ef8
 - 海康威视官方音视频技术方案对比 https://open.hikvision.com/docs/docId?productId=612781c8ec4acb28e0e1c0c3&version=%2Fff026cfc47a14e79a6c9acf21d9d8769&curNodeId=2e231666a7854dc4a2dc29b9ed06782a
 - 官方硬件产品文档 https://open.hikvision.com/docs/docId?productId=5cda567cf47ae80dd41a54b3&version=%2F16e18c75bd644f1dbf9e8301d6fc9b73&tagPath=%E9%80%9A%E7%94%A8%E8%A7%86%E9%A2%91-%E5%AE%9E%E6%97%B6%E9%A2%84%E8%A7%88
 
